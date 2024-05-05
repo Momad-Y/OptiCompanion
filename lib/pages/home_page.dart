@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
-  static const int _maxCounter = 2;
+  static const int _maxCounter = 8;
   static const int _minCounter = 0;
   static const int _velocityThreshold = 1;
 
@@ -70,35 +70,52 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            homeContainer(context, const Text("")),
+                            _counter == 0
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                             const SizedBox(width: 45),
-                            homeContainer(context, const Text("")),
+                            _counter == 1
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                           ],
                         ),
                         const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            homeContainer(context, const Text("")),
+                            _counter == 2
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                             const SizedBox(width: 45),
-                            homeContainer(context, const Text("")),
+                            _counter == 3
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                           ],
                         ),
                         const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            homeContainer(context, const Text("")),
+                            _counter == 4
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                             const SizedBox(width: 45),
-                            homeContainer(context, const Text("")),
+                            _counter == 5
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                           ],
                         ),
                         const SizedBox(height: 40),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            homeContainer(context, const Text("")),
-                            homeContainer(context, const Text("")),
+                            _counter == 6
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
+                            const SizedBox(width: 45),
+                            _counter == 7
+                                ? selectedHomeContainer(context, const Text(""))
+                                : homeContainer(context, const Text("")),
                           ],
                         ),
                         const SizedBox(height: 70),
