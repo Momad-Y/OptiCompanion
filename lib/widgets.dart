@@ -12,3 +12,11 @@ homeContainer(BuildContext context, Widget child) {
     child: child,
   );
 }
+
+appLogo(BuildContext context) {
+  String logoPath = MediaQuery.of(context).platformBrightness == Brightness.light
+      ? 'assets/images/OptiCompanion-Transparent - Light.png'
+      : 'assets/images/OptiCompanion-Transparent - Dark.png';
+
+  return Image.asset(logoPath, width: 90, height: 90);
+}
