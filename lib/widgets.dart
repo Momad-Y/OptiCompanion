@@ -33,3 +33,13 @@ appLogo(BuildContext context) {
 
   return Image.asset(logoPath, width: 90, height: 90);
 }
+
+icon(BuildContext context, String path) {
+  String logoPath = path;
+
+  MediaQuery.of(context).platformBrightness == Brightness.light
+      ? logoPath = '${logoPath.split('.').first} - light.png'
+      : logoPath = '${logoPath.split('.').first} - dark.png';
+
+  return Image.asset(logoPath, width: 70, height: 70);
+}
