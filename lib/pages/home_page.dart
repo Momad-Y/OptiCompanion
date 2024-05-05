@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../themes.dart';
+import '../widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -43,137 +45,70 @@ class _HomePageState extends State<HomePage> {
           _incrementCounter();
         }
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 30),
-              Image.asset('assets/images/App Logo.png', width: 65, height: 65),
-              const SizedBox(height: 20),
-              Text(
-                'Home Screen',
-                style: Theme.of(context).textTheme.titleLarge!,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 70),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                          const SizedBox(width: 45),
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                          const SizedBox(width: 45),
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                          const SizedBox(width: 45),
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                          Container(
-                            width: 150,
-                            height: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(width: 4),
-                            ),
-                            child: const Text(""),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 80),
-                    ],
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Theme.of(context).colorScheme.primary,
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 40),
+                Image.asset('assets/images/App Logo.png', width: 65, height: 65),
+                const SizedBox(height: 20),
+                Text(
+                  'Home Screen',
+                  style: textTheme(context).titleLarge!,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 70),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            homeContainer(context, const Text("")),
+                            const SizedBox(width: 45),
+                            homeContainer(context, const Text("")),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            homeContainer(context, const Text("")),
+                            const SizedBox(width: 45),
+                            homeContainer(context, const Text("")),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            homeContainer(context, const Text("")),
+                            const SizedBox(width: 45),
+                            homeContainer(context, const Text("")),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            homeContainer(context, const Text("")),
+                            homeContainer(context, const Text("")),
+                          ],
+                        ),
+                        const SizedBox(height: 80),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
