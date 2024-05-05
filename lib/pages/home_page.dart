@@ -56,14 +56,13 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                Image.asset('assets/images/App Logo.png', width: 65, height: 65),
-                const SizedBox(height: 20),
+                appLogo(context),
                 Text(
                   'Home Screen',
                   style: textTheme(context).titleLarge!,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 70),
+                const SizedBox(height: 60),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                             homeContainer(context, const Text("")),
                           ],
                         ),
-                        const SizedBox(height: 80),
+                        const SizedBox(height: 70),
                       ],
                     ),
                   ),
