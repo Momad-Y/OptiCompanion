@@ -1,7 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import 'package:flutter_tts/flutter_tts.dart';
+import './tts.dart';
+
 import '../themes.dart';
 import '../widgets.dart';
+
+enum TtsState { playing, stopped, paused, continued }
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +24,27 @@ class _HomePageState extends State<HomePage> {
   static const int _velocityThreshold = 1;
 
   ScrollController controller = ScrollController();
+
+  FlutterTts? flutterTts;
+
+  static const List<String> _homeScreen = [
+    "Home Screen",
+    "Optical Character Recognition",
+    "Object Recognition",
+    "Document Reader",
+    "Feedback",
+    "Settings",
+    "Help",
+    "Get in Touch with Me",
+    "History"
+  ];
+
+  @override
+  initState() {
+    super.initState();
+    flutterTts = Tts().initTts(flutterTts);
+    _speak();
+  }
 
   void _scrollPage() {
     if (_counter == 7 || _counter == 8) {
@@ -58,6 +86,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> _speak() async {
+    await flutterTts!.speak(_homeScreen[_counter]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,9 +97,11 @@ class _HomePageState extends State<HomePage> {
         if (details.primaryVelocity! < -_velocityThreshold) {
           _decrementCounter();
           _scrollPage();
+          _speak();
         } else if (details.primaryVelocity! > _velocityThreshold) {
           _incrementCounter();
           _scrollPage();
+          _speak();
         }
       },
       child: Container(
@@ -91,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                   ),
                   child: Text(
-                    'Home Screen',
+                    _homeScreen[0],
                     style: textTheme(context).titleLarge!,
                     textAlign: TextAlign.center,
                   ),
@@ -158,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                                                   child: Icon(Icons.pedal_bike,
                                                       size: 40, color: Theme.of(context).colorScheme.secondary))),
                                           const SizedBox(height: 10),
-                                          Text("Object Recognition",
+                                          Text(_homeScreen[2],
                                               style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
                                         ]))
                                 : homeContainer(
@@ -177,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                                                   child: Icon(Icons.pedal_bike,
                                                       size: 40, color: Theme.of(context).colorScheme.secondary))),
                                           const SizedBox(height: 10),
-                                          Text("Object Recognition",
+                                          Text(_homeScreen[2],
                                               style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
                                         ])),
                           ],
@@ -196,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.file_open_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 10),
-                                          Text("Document Reader",
+                                          Text(_homeScreen[3],
                                               style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
                                           const SizedBox(height: 5),
                                         ]))
@@ -209,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.file_open_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 10),
-                                          Text("Document Reader",
+                                          Text(_homeScreen[3],
                                               style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
                                           const SizedBox(height: 5),
                                         ])),
@@ -224,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.thumbs_up_down_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("Feedback",
+                                          Text(_homeScreen[4],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ]))
@@ -237,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.thumbs_up_down_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("Feedback",
+                                          Text(_homeScreen[4],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ])),
@@ -257,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.settings_applications_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("Settings",
+                                          Text(_homeScreen[5],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ]))
@@ -270,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.settings_applications_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("Settings",
+                                          Text(_homeScreen[5],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ])),
@@ -285,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.help_outline_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("Help",
+                                          Text(_homeScreen[6],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ]))
@@ -298,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.help_outline_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("Help",
+                                          Text(_homeScreen[6],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ])),
@@ -318,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.mail_outline_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 10),
-                                          Text("Get in Touch with Us",
+                                          Text(_homeScreen[7],
                                               style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
                                           const SizedBox(height: 5),
                                         ]))
@@ -331,7 +365,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.mail_outline_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 10),
-                                          Text("Get in Touch with Us",
+                                          Text(_homeScreen[7],
                                               style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
                                           const SizedBox(height: 5),
                                         ])),
@@ -346,7 +380,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.history_toggle_off_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("History",
+                                          Text(_homeScreen[8],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ]))
@@ -359,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                                           Icon(Icons.history_toggle_off_rounded,
                                               size: 60, color: Theme.of(context).colorScheme.secondary),
                                           const SizedBox(height: 12),
-                                          Text("History",
+                                          Text(_homeScreen[8],
                                               style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                           const SizedBox(height: 8),
                                         ])),
