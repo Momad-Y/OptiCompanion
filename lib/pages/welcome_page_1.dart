@@ -72,6 +72,13 @@ class _WelcomePage1State extends State<WelcomePage1> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        onLongPress: () {
+          if (_counter == 3) {
+            Navigator.pushNamed(context, '/welcome2');
+          } else {
+            _speak();
+          }
+        },
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! < -_velocityThreshold) {
             _decrementCounter();
@@ -167,13 +174,13 @@ class _WelcomePage1State extends State<WelcomePage1> {
                             _setCounter(3);
                             _speak();
                           },
-                          child: selectedNextPageButton(context, '/home'))
+                          child: selectedNextPageButton(context, '/welcome2'))
                       : GestureDetector(
                           onDoubleTap: () {
                             _setCounter(3);
                             _speak();
                           },
-                          child: nextPageButton(context, '/home')),
+                          child: nextPageButton(context, '/welcome2')),
                 ])))));
   }
 }
