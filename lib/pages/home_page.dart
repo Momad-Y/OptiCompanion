@@ -98,6 +98,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       // Todo: Long press anywhere to navigate
+      onLongPress: () {
+        if (_counter == 3) {
+        } else {
+          _speak();
+        }
+      },
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity! < -_velocityThreshold) {
           _decrementCounter();
