@@ -46,9 +46,8 @@ icon(BuildContext context, String path) {
 }
 
 nextPageButton(BuildContext context, String route) {
-  return ElevatedButton(
+  return GestureDetector(
     onLongPress: () => Navigator.pushNamed(context, route),
-    onPressed: () {},
     child: Container(
       width: 220,
       height: 60,
@@ -61,7 +60,6 @@ nextPageButton(BuildContext context, String route) {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // const SizedBox(width: 10),
           Text('Next', style: textTheme(context).labelLarge),
           const SizedBox(width: 10),
           Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
@@ -72,9 +70,8 @@ nextPageButton(BuildContext context, String route) {
 }
 
 selectedNextPageButton(BuildContext context, String route) {
-  return ElevatedButton(
+  return GestureDetector(
     onLongPress: () => Navigator.pushNamed(context, route),
-    onPressed: () {},
     child: Container(
       width: 220,
       height: 60,
@@ -91,6 +88,54 @@ selectedNextPageButton(BuildContext context, String route) {
           Text('Next', style: textTheme(context).labelLarge),
           const SizedBox(width: 10),
           Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
+        ],
+      ),
+    ),
+  );
+}
+
+previousPageButton(BuildContext context, String route) {
+  return GestureDetector(
+    onLongPress: () => Navigator.pushNamed(context, route),
+    child: Container(
+      width: 220,
+      height: 60,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
+          const SizedBox(width: 10),
+          Text('Previous', style: textTheme(context).labelLarge),
+        ],
+      ),
+    ),
+  );
+}
+
+selectedPreviousPageButton(BuildContext context, String route) {
+  return GestureDetector(
+    onLongPress: () => Navigator.pushNamed(context, route),
+    child: Container(
+      width: 220,
+      height: 60,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
+          const SizedBox(width: 10),
+          Text('Previous', style: textTheme(context).labelLarge),
         ],
       ),
     ),
