@@ -7,7 +7,7 @@ class Tts {
     _setAwaitOptions(flutterTts);
 
     setTtsLanguage(flutterTts, "en");
-    setTtsSpeed(flutterTts, 4);
+    setTtsSpeed(flutterTts, 3);
     setTtsVolume(flutterTts, 10);
     setTtsGender(flutterTts, "female");
 
