@@ -44,3 +44,6 @@ app.*.map.json
 
 # VsCode Related
 .vscode/
+
+# Testing
+test*.dart
