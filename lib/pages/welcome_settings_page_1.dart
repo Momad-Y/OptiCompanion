@@ -23,8 +23,6 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
   static const int _minCounter = 0;
   static const int _velocityThreshold = 1;
 
-  ThemeMode _themeMode = ThemeMode.system;
-
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
@@ -41,7 +39,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     "Phone's Theme",
     "Light Theme",
     "Dark Theme",
-    "Enable Magnifier, Current setting is ",
+    "Magnifier Settings, It is currently ",
     "Disable Magnifier",
     "Enable Magnifier",
     "Previous page",
@@ -99,19 +97,33 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     }
   }
 
-  void _toggleTheme(ThemeMode themeMode) {
-    setState(() {
-      _themeMode = themeMode;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onLongPress: () {
-          if (_counter == 13) {
-            Navigator.pushNamed(context, '/welcome2');
+          if (_counter == 2) {
+            AppSettings(context).setTextSize = 1;
+          } else if (_counter == 3) {
+            AppSettings(context).setTextSize = 2;
+          } else if (_counter == 4) {
+            AppSettings(context).setTextSize = 3;
+          } else if (_counter == 5) {
+            AppSettings(context).setTextSize = 4;
+          } else if (_counter == 6) {
+            AppSettings(context).setTextSize = 5;
+          } else if (_counter == 8) {
+            AppSettings(context).setTheme = 0;
+          } else if (_counter == 9) {
+            AppSettings(context).setTheme = 1;
+          } else if (_counter == 10) {
+            AppSettings(context).setTheme = 2;
+          } else if (_counter == 12) {
+            AppSettings(context).setIsMagnifierEnabled = false;
+          } else if (_counter == 13) {
+            AppSettings(context).setIsMagnifierEnabled = true;
           } else if (_counter == 14) {
+            Navigator.pushNamed(context, '/welcome2');
+          } else if (_counter == 15) {
             Navigator.pushNamed(context, '/home');
           } else {
             _speak();
@@ -136,7 +148,6 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                  const SizedBox(height: 40),
                   GestureDetector(
                       onDoubleTap: () {
                         _setCounter(0);
@@ -163,14 +174,14 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 55),
+                  const SizedBox(height: 25),
                   GestureDetector(
                     onDoubleTap: () {
                       _setCounter(1);
                       _speak();
                     },
                     child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                      padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
@@ -179,7 +190,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                       ),
                       child: Text(
                         _pageText[1] + (AppSettings(context).getTextSize.toString()),
-                        style: textTheme(context).labelMedium!,
+                        style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -305,14 +316,14 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                           ),
                         )
                       ]),
-                  const SizedBox(height: 55),
+                  const SizedBox(height: 25),
                   GestureDetector(
                     onDoubleTap: () {
                       _setCounter(7);
                       _speak();
                     },
                     child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                      padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
@@ -326,7 +337,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                 : AppSettings(context).getTheme == 1
                                     ? "Light"
                                     : "Dark"),
-                        style: textTheme(context).labelMedium!,
+                        style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -342,7 +353,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            _toggleTheme(ThemeMode.system);
+                            AppSettings(context).setTheme = 0;
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -365,7 +376,6 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                           onDoubleTap: () {
                             _setCounter(9);
                             _speak();
-                            AppSettings(context).setTheme = 1;
                           },
                           onLongPress: () {
                             AppSettings(context).setTheme = 1;
@@ -413,6 +423,111 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                           ),
                         )
                       ]),
+                  const SizedBox(height: 25),
+                  GestureDetector(
+                    onDoubleTap: () {
+                      _setCounter(11);
+                      _speak();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            width: 4,
+                            color: _counter == 11 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
+                      ),
+                      child: Text(
+                        _pageText[11] + (AppSettings(context).getIsMagnifierEnabled ? "Enabled" : "Disabled"),
+                        style: textTheme(context).displaySmall!,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onDoubleTap: () {
+                            _setCounter(12);
+                            _speak();
+                          },
+                          onLongPress: () {
+                            AppSettings(context).setIsMagnifierEnabled = false;
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                  width: 4,
+                                  color: _counter == 12
+                                      ? Theme.of(context).colorScheme.outline
+                                      : Theme.of(context).colorScheme.tertiary),
+                            ),
+                            child: Text(
+                              _pageText[12],
+                              style: textTheme(context).labelMedium!,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onDoubleTap: () {
+                            _setCounter(13);
+                            _speak();
+                          },
+                          onLongPress: () {
+                            AppSettings(context).setIsMagnifierEnabled = true;
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                  width: 4,
+                                  color: _counter == 13
+                                      ? Theme.of(context).colorScheme.outline
+                                      : Theme.of(context).colorScheme.tertiary),
+                            ),
+                            child: Text(
+                              _pageText[13],
+                              style: textTheme(context).labelMedium!,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                      ]),
+                  const SizedBox(height: 50),
+                  _counter == 14
+                      ? GestureDetector(
+                          onDoubleTap: () {
+                            _setCounter(14);
+                            _speak();
+                          },
+                          child: selectedPreviousPageButton(context, '/welcome2'))
+                      : GestureDetector(
+                          onDoubleTap: () {
+                            _setCounter(14);
+                            _speak();
+                          },
+                          child: previousPageButton(context, '/welcome2')),
+                  const SizedBox(height: 30),
+                  _counter == 15
+                      ? GestureDetector(
+                          onDoubleTap: () {
+                            _setCounter(15);
+                            _speak();
+                          },
+                          child: selectedNextPageButton(context, '/home'))
+                      : GestureDetector(
+                          onDoubleTap: () {
+                            _setCounter(15);
+                            _speak();
+                          },
+                          child: nextPageButton(context, '/home')),
                 ])))));
   }
 }
