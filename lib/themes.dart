@@ -51,5 +51,10 @@ TextTheme textTheme(context) {
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: Theme.of(context).colorScheme.secondary,
+          fontFamily: 'Arial'),
+      displaySmall: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+          color: Theme.of(context).colorScheme.secondary,
           fontFamily: 'Arial'));
 }
