@@ -76,7 +76,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
           if (_counter == 2) {
             Navigator.pushNamed(context, '/welcome1');
           } else if (_counter == 3) {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/welcome_settings1');
           } else {
             _speak();
           }
@@ -170,13 +170,13 @@ class _WelcomePage2State extends State<WelcomePage2> {
                             _setCounter(3);
                             _speak();
                           },
-                          child: selectedNextPageButton(context, '/home'))
+                          child: selectedNextPageButton(context, '/welcome_settings1'))
                       : GestureDetector(
                           onDoubleTap: () {
                             _setCounter(3);
                             _speak();
                           },
-                          child: nextPageButton(context, '/home')),
+                          child: nextPageButton(context, '/welcome_settings1')),
                 ])))));
   }
 }
