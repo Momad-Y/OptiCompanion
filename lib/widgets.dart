@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './themes.dart';
+import '../settings.dart';
 
 homeContainer(BuildContext context, Widget child) {
   return Container(
@@ -28,21 +29,17 @@ selectedHomeContainer(BuildContext context, Widget child) {
 }
 
 appLogo(BuildContext context, double width, double height) {
-  String logoPath = MediaQuery.of(context).platformBrightness == Brightness.light
-      ? 'assets/images/OptiCompanion-Transparent - Light.png'
-      : 'assets/images/OptiCompanion-Transparent - Dark.png';
-
-  return Image.asset(logoPath, width: width, height: height);
-}
-
-icon(BuildContext context, String path) {
-  String logoPath = path;
-
-  MediaQuery.of(context).platformBrightness == Brightness.light
-      ? logoPath = '${logoPath.split('.').first} - light.png'
-      : logoPath = '${logoPath.split('.').first} - dark.png';
-
-  return Image.asset(logoPath, width: 70, height: 70);
+  if (AppSettings(context).getTheme == 1) {
+    return Image.asset('assets/images/OptiCompanion-Transparent - Light.png', width: width, height: height);
+  } else if (AppSettings(context).getTheme == 2) {
+    return Image.asset('assets/images/OptiCompanion-Transparent - Dark.png', width: width, height: height);
+  } else {
+    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      return Image.asset('assets/images/OptiCompanion-Transparent - Dark.png', width: width, height: height);
+    } else {
+      return Image.asset('assets/images/OptiCompanion-Transparent - Light.png', width: width, height: height);
+    }
+  }
 }
 
 nextPageButton(BuildContext context, String route) {
@@ -140,4 +137,42 @@ selectedPreviousPageButton(BuildContext context, String route) {
       ),
     ),
   );
+}
+
+class BorderPainter extends CustomPainter {
+  final BuildContext context;
+
+  BorderPainter(this.context);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    double sh = size.height;
+    double sw = size.width;
+
+    double cornerSide = sh * 0.15;
+
+    Paint paint = Paint()
+      ..color = Theme.of(context).colorScheme.secondary
+      ..strokeWidth = 3.5
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    Path path = Path()
+      ..moveTo(cornerSide, 0)
+      ..quadraticBezierTo(0, 0, 0, cornerSide)
+      ..moveTo(0, sh - cornerSide)
+      ..quadraticBezierTo(0, sh, cornerSide, sh)
+      ..moveTo(sw - cornerSide, sh)
+      ..quadraticBezierTo(sw, sh, sw, sh - cornerSide)
+      ..moveTo(sw, cornerSide)
+      ..quadraticBezierTo(sw, 0, sw - cornerSide, 0);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(BorderPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(BorderPainter oldDelegate) => false;
 }
