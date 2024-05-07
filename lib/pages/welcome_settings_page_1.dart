@@ -27,29 +27,57 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
 
   FlutterTts? flutterTts;
 
-  static List _pageText = [
+  Tts? tts;
+
+  AppSettings? appSettings;
+
+  static const _pageTextEn = [
     "Customize Your Preferences",
-    "Select text Size, Current text size is ",
+    "Select text size, current text size is ",
     "Text Size: 1",
     "Text Size: 2",
     "Text Size: 3",
     "Text Size: 4",
     "Text Size: 5",
-    "Select theme, Current theme is ",
+    "Select theme, current theme is ",
     "Phone's Theme",
     "Light Theme",
     "Dark Theme",
-    "Magnifier Settings, It is currently ",
+    "Magnifier Settings, it is currently ",
     "Disable Magnifier",
     "Enable Magnifier",
     "Previous page",
     "Next page"
   ];
 
+  static const _pageTextAr = [
+    "قم بتخصيص الإعدادات",
+    "حدد حجم النص، الحجم الحالي هو ",
+    "حجم النص: 1",
+    "حجم النص: 2",
+    "حجم النص: 3",
+    "حجم النص: 4",
+    "حجم النص: 5",
+    "حدد السمة، السمة الحالية هي ",
+    "سمة الهاتف",
+    "سمة فاتحة",
+    "سمة داكنة",
+    "إعدادات المكبر، حاليًا ",
+    "تعطيل المكبر",
+    "تمكين المكبر",
+    "الصفحة السابقة",
+    "الصفحة التالية"
+  ];
+
+  List? _pageText = [];
+
   @override
   initState() {
+    appSettings = mainAppSettings;
     super.initState();
-    flutterTts = Tts().initTts(flutterTts);
+    tts = mainTts;
+    flutterTts = tts!.initTts(flutterTts);
+    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _speak();
   }
 
@@ -81,19 +109,27 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
 
   Future<void> _speak() async {
     if (_counter == 1) {
-      await flutterTts!.speak(_pageText[_counter] + (AppSettings(context).getTextSize.toString()));
+      await flutterTts!.speak(_pageText![_counter] + (appSettings!.getTextSize.toString()));
     } else if (_counter == 7) {
-      await flutterTts!.speak(_pageText[_counter] +
-          (AppSettings(context).getTheme == 0
-              ? "Phone's theme"
-              : AppSettings(context).getTheme == 1
-                  ? "Light"
-                  : "Dark"));
+      await flutterTts!.speak(_pageText![_counter] +
+          (tts!.getLanguage == "English"
+              ? appSettings!.getTheme == 0
+                  ? "phone's theme"
+                  : appSettings!.getTheme == 1
+                      ? "light"
+                      : "dark"
+              : appSettings!.getTheme == 0
+                  ? "سمة الهاتف"
+                  : appSettings!.getTheme == 1
+                      ? "فاتحة"
+                      : "داكنة"));
     } else if (_counter == 11) {
-      await flutterTts!
-          .speak(_pageText[_counter] + (AppSettings(context).getIsMagnifierEnabled ? "Enabled" : "Disabled"));
+      await flutterTts!.speak(_pageText![_counter] +
+          (tts!.getLanguage == "English"
+              ? (appSettings!.getIsMagnifierEnabled ? "enabled" : "disabled")
+              : (appSettings!.getIsMagnifierEnabled ? "المكبر مفعل" : "المكبر غير مفعل")));
     } else {
-      await flutterTts!.speak(_pageText[_counter]);
+      await flutterTts!.speak(_pageText![_counter]);
     }
   }
 
@@ -102,29 +138,29 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     return GestureDetector(
         onLongPress: () {
           if (_counter == 2) {
-            AppSettings(context).setTextSize = 1;
+            appSettings!.setTextSize = 1;
           } else if (_counter == 3) {
-            AppSettings(context).setTextSize = 2;
+            appSettings!.setTextSize = 2;
           } else if (_counter == 4) {
-            AppSettings(context).setTextSize = 3;
+            appSettings!.setTextSize = 3;
           } else if (_counter == 5) {
-            AppSettings(context).setTextSize = 4;
+            appSettings!.setTextSize = 4;
           } else if (_counter == 6) {
-            AppSettings(context).setTextSize = 5;
+            appSettings!.setTextSize = 5;
           } else if (_counter == 8) {
-            AppSettings(context).setTheme = 0;
+            appSettings!.setTheme = 0;
           } else if (_counter == 9) {
-            AppSettings(context).setTheme = 1;
+            appSettings!.setTheme = 1;
           } else if (_counter == 10) {
-            AppSettings(context).setTheme = 2;
+            appSettings!.setTheme = 2;
           } else if (_counter == 12) {
-            AppSettings(context).setIsMagnifierEnabled = false;
+            appSettings!.setIsMagnifierEnabled = false;
           } else if (_counter == 13) {
-            AppSettings(context).setIsMagnifierEnabled = true;
+            appSettings!.setIsMagnifierEnabled = true;
           } else if (_counter == 14) {
             Navigator.pushNamed(context, '/welcome2');
           } else if (_counter == 15) {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/welcome_settings2');
           } else {
             _speak();
           }
@@ -168,7 +204,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[0],
+                        _pageText![0],
                         style: textTheme(context).titleLarge!,
                         textAlign: TextAlign.center,
                       ),
@@ -189,7 +225,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[1] + (AppSettings(context).getTextSize.toString()),
+                        _pageText![1] + (appSettings!.getTextSize.toString()),
                         style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),
@@ -205,7 +241,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(2);
                             _speak();
                           },
-                          onLongPress: () => AppSettings(context).setTextSize = 1,
+                          onLongPress: () => appSettings!.setTextSize = 1,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -217,7 +253,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[2].split(" ")[2],
+                              _pageText![2].split(" ")[2],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -228,7 +264,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(3);
                             _speak();
                           },
-                          onLongPress: () => AppSettings(context).setTextSize = 2,
+                          onLongPress: () => appSettings!.setTextSize = 2,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -240,7 +276,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[3].split(" ")[2],
+                              _pageText![3].split(" ")[2],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -251,7 +287,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(4);
                             _speak();
                           },
-                          onLongPress: () => AppSettings(context).setTextSize = 3,
+                          onLongPress: () => appSettings!.setTextSize = 3,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -263,7 +299,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[4].split(" ")[2],
+                              _pageText![4].split(" ")[2],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -274,7 +310,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(5);
                             _speak();
                           },
-                          onLongPress: () => AppSettings(context).setTextSize = 4,
+                          onLongPress: () => appSettings!.setTextSize = 4,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -286,7 +322,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[5].split(" ")[2],
+                              _pageText![5].split(" ")[2],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -297,7 +333,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(6);
                             _speak();
                           },
-                          onLongPress: () => AppSettings(context).setTextSize = 5,
+                          onLongPress: () => appSettings!.setTextSize = 5,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -309,7 +345,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[6].split(" ")[2],
+                              _pageText![6].split(" ")[2],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -331,12 +367,18 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             color: _counter == 7 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[7] +
-                            (AppSettings(context).getTheme == 0
-                                ? "Phone's theme"
-                                : AppSettings(context).getTheme == 1
-                                    ? "Light"
-                                    : "Dark"),
+                        _pageText![7] +
+                            (tts!.getLanguage == "English"
+                                ? appSettings!.getTheme == 0
+                                    ? "phone's theme"
+                                    : appSettings!.getTheme == 1
+                                        ? "light"
+                                        : "dark"
+                                : appSettings!.getTheme == 0
+                                    ? "سمة الهاتف"
+                                    : appSettings!.getTheme == 1
+                                        ? "فاتحة"
+                                        : "داكنة"),
                         style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),
@@ -353,7 +395,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            AppSettings(context).setTheme = 0;
+                            appSettings!.setTheme = 0;
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -366,7 +408,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[8],
+                              _pageText![8],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -378,7 +420,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            AppSettings(context).setTheme = 1;
+                            appSettings!.setTheme = 1;
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -391,7 +433,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[9],
+                              _pageText![9],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -403,7 +445,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            AppSettings(context).setTheme = 2;
+                            appSettings!.setTheme = 2;
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -416,7 +458,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[10],
+                              _pageText![10],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -438,7 +480,10 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             color: _counter == 11 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[11] + (AppSettings(context).getIsMagnifierEnabled ? "Enabled" : "Disabled"),
+                        _pageText![11] +
+                            (tts!.getLanguage == "English"
+                                ? (appSettings!.getIsMagnifierEnabled ? "enabled" : "disabled")
+                                : (appSettings!.getIsMagnifierEnabled ? "المكبر مفعل" : "المكبر غير مفعل")),
                         style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),
@@ -455,7 +500,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            AppSettings(context).setIsMagnifierEnabled = false;
+                            appSettings!.setIsMagnifierEnabled = false;
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -468,7 +513,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[12],
+                              _pageText![12],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
@@ -480,7 +525,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            AppSettings(context).setIsMagnifierEnabled = true;
+                            appSettings!.setIsMagnifierEnabled = true;
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -493,14 +538,14 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                                       : Theme.of(context).colorScheme.tertiary),
                             ),
                             child: Text(
-                              _pageText[13],
+                              _pageText![13],
                               style: textTheme(context).labelMedium!,
                               textAlign: TextAlign.center,
                             ),
                           ),
                         )
                       ]),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 80),
                   _counter == 14
                       ? GestureDetector(
                           onDoubleTap: () {
@@ -514,20 +559,20 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           child: previousPageButton(context, '/welcome2')),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   _counter == 15
                       ? GestureDetector(
                           onDoubleTap: () {
                             _setCounter(15);
                             _speak();
                           },
-                          child: selectedNextPageButton(context, '/home'))
+                          child: selectedNextPageButton(context, '/welcome_settings2'))
                       : GestureDetector(
                           onDoubleTap: () {
                             _setCounter(15);
                             _speak();
                           },
-                          child: nextPageButton(context, '/home')),
+                          child: nextPageButton(context, '/welcome_settings2')),
                 ])))));
   }
 }
