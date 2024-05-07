@@ -25,17 +25,30 @@ class _WelcomePage2State extends State<WelcomePage2> {
 
   FlutterTts? flutterTts;
 
-  static const _pageText = [
+  Tts? tts;
+
+  static const _pageTextEn = [
     "Double tap on a button or piece of text to select it.",
     "To activate an item you have selected, long press on it or long press anywhere on the screen.",
     "Previous page",
     "Next page"
   ];
 
+  static const _pageTextAr = [
+    "اضغط مرتين على زر أو قطعة نص لتحديدها",
+    "لتفعيل العنصر الذي قمت بتحديده، اضغط بشكل مطول عليه أو اضغط بشكل مطول في أي مكان على الشاشة",
+    "الصفحة السابقة",
+    "الصفحة التالية"
+  ];
+
+  List? _pageText = [];
+
   @override
   initState() {
     super.initState();
-    flutterTts = Tts().initTts(flutterTts);
+    tts = mainTts;
+    flutterTts = tts!.initTts(flutterTts);
+    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _speak();
   }
 
@@ -66,7 +79,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
   }
 
   Future<void> _speak() async {
-    await flutterTts!.speak(_pageText[_counter]);
+    await flutterTts!.speak(_pageText![_counter]);
   }
 
   @override
@@ -122,7 +135,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                             color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[0],
+                        _pageText![0],
                         style: textTheme(context).displayMedium!,
                         textAlign: TextAlign.center,
                       ),
@@ -143,13 +156,13 @@ class _WelcomePage2State extends State<WelcomePage2> {
                             color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[1],
+                        _pageText![1],
                         style: textTheme(context).displayMedium!,
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 100),
                   _counter == 2
                       ? GestureDetector(
                           onDoubleTap: () {
@@ -163,7 +176,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                             _speak();
                           },
                           child: previousPageButton(context, '/welcome1')),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   _counter == 3
                       ? GestureDetector(
                           onDoubleTap: () {
