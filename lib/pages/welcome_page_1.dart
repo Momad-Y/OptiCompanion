@@ -25,17 +25,30 @@ class _WelcomePage1State extends State<WelcomePage1> {
 
   FlutterTts? flutterTts;
 
-  static const _pageText = [
+  Tts? tts;
+
+  static const _pageTextEn = [
     "Welcome to Your Vision's Best Friend",
     "Swipe left or right anywhere on the screen to navigate between buttons or text.",
     "When an item is selected, it will be highlighted, fully shown on the screen, and read out aloud.",
     "Next page",
   ];
 
+  static const _pageTextAr = [
+    "مرحبًا بك في أفضل صديق لرؤيتك",
+    "اسحب يمينًا أو يسارًا في أي مكان على الشاشة للتنقل بين الأزرار أو النص",
+    "عند تحديد عنصر ما، سيتم تحديده، وعرضه بالكامل على الشاشة، وقراءته بصوت عال",
+    "الصفحة التالية",
+  ];
+
+  List? _pageText = [];
+
   @override
   initState() {
     super.initState();
-    flutterTts = Tts().initTts(flutterTts);
+    tts = mainTts;
+    flutterTts = tts!.initTts(flutterTts);
+    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _speak();
   }
 
@@ -66,7 +79,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
   }
 
   Future<void> _speak() async {
-    await flutterTts!.speak(_pageText[_counter]);
+    await flutterTts!.speak(_pageText![_counter]);
   }
 
   @override
@@ -119,7 +132,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
                             color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[0],
+                        _pageText![0],
                         style: textTheme(context).titleLarge!,
                         textAlign: TextAlign.center,
                       ),
@@ -140,7 +153,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
                             color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[1],
+                        _pageText![1],
                         style: textTheme(context).displayMedium!,
                         textAlign: TextAlign.center,
                       ),
@@ -161,7 +174,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
                             color: _counter == 2 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText[2],
+                        _pageText![2],
                         style: textTheme(context).displayMedium!,
                         textAlign: TextAlign.center,
                       ),
