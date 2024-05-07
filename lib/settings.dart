@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
+AppSettings mainAppSettings = AppSettings();
 
 class AppSettings {
-  BuildContext context;
-
-  AppSettings(this.context);
-
   int _textSize = 2;
 
-  bool _isMagnifierEnabled = false;
+  late bool _isMagnifierEnabled = false;
 
   int _theme = 0;
 
