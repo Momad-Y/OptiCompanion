@@ -25,7 +25,9 @@ class _HomePageState extends State<HomePage> {
 
   FlutterTts? flutterTts;
 
-  static const List<String> _pageText = [
+  Tts? tts;
+
+  static const List<String> _pageTextEn = [
     "Home Screen",
     "Optical Character Recognition",
     "Object Recognition",
@@ -37,10 +39,26 @@ class _HomePageState extends State<HomePage> {
     "History"
   ];
 
+  static const List<String> _pageTextAr = [
+    "الصفحة الرئيسية",
+    "التعرف الضوئي على النصوص",
+    "التعرف على الأشياء",
+    "قارئ المستندات",
+    "الإنطباعات",
+    "الإعدادات",
+    "المساعدة",
+    "تواصل معي",
+    "السجل"
+  ];
+
+  List? _pageText = [];
+
   @override
   initState() {
     super.initState();
-    flutterTts = Tts().initTts(flutterTts);
+    tts = mainTts;
+    flutterTts = tts!.initTts(flutterTts);
+    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _speak();
   }
 
@@ -91,7 +109,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _speak() async {
-    await flutterTts!.speak(_pageText[_counter]);
+    await flutterTts!.speak(_pageText![_counter]);
   }
 
   @override
@@ -148,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                           color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                     ),
                     child: Text(
-                      _pageText[0],
+                      _pageText![0],
                       style: textTheme(context).titleLarge!,
                       textAlign: TextAlign.center,
                     ),
@@ -172,21 +190,39 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              CustomPaint(
-                                                  foregroundPainter: BorderPainter(context),
-                                                  child: Container(
-                                                      alignment: Alignment.center,
-                                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
-                                                      width: 65,
-                                                      height: 65,
-                                                      child: Text("A", style: textTheme(context).displayLarge!))),
-                                              const SizedBox(height: 19),
-                                              Text("OCR", style: textTheme(context).labelLarge!),
-                                            ])))
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Text("A", style: textTheme(context).displayLarge!))),
+                                                    const SizedBox(height: 19),
+                                                    Text("OCR", style: textTheme(context).labelLarge!),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Text("A", style: textTheme(context).displayLarge!))),
+                                                    const SizedBox(height: 10),
+                                                    Text("التعرف الضوئي على النصوص",
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                  ])))
                                 : GestureDetector(
                                     onDoubleTap: () {
                                       _setCounter(1);
@@ -195,21 +231,39 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: homeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              CustomPaint(
-                                                  foregroundPainter: BorderPainter(context),
-                                                  child: Container(
-                                                      alignment: Alignment.center,
-                                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
-                                                      width: 65,
-                                                      height: 65,
-                                                      child: Text("A", style: textTheme(context).displayLarge!))),
-                                              const SizedBox(height: 19),
-                                              Text("OCR", style: textTheme(context).labelLarge!),
-                                            ]))),
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Text("A", style: textTheme(context).displayLarge!))),
+                                                    const SizedBox(height: 19),
+                                                    Text("OCR", style: textTheme(context).labelLarge!),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Text("A", style: textTheme(context).displayLarge!))),
+                                                    const SizedBox(height: 10),
+                                                    Text("التعرف الضوئي على النصوص",
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                  ]))),
                             const SizedBox(width: 45),
                             _counter == 2
                                 ? GestureDetector(
@@ -220,23 +274,46 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              CustomPaint(
-                                                  foregroundPainter: BorderPainter(context),
-                                                  child: Container(
-                                                      alignment: Alignment.center,
-                                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
-                                                      width: 65,
-                                                      height: 65,
-                                                      child: Icon(Icons.pedal_bike,
-                                                          size: 40, color: Theme.of(context).colorScheme.secondary))),
-                                              const SizedBox(height: 10),
-                                              Text(_pageText[2],
-                                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
-                                            ])))
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Icon(Icons.pedal_bike,
+                                                                size: 40,
+                                                                color: Theme.of(context).colorScheme.secondary))),
+                                                    const SizedBox(height: 10),
+                                                    Text(_pageText![2],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Icon(Icons.pedal_bike,
+                                                                size: 40,
+                                                                color: Theme.of(context).colorScheme.secondary))),
+                                                    const SizedBox(height: 20),
+                                                    Text(_pageText![2],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 10),
+                                                  ])))
                                 : homeContainer(
                                     context,
                                     GestureDetector(
@@ -245,23 +322,46 @@ class _HomePageState extends State<HomePage> {
                                           _scrollPage();
                                           _speak();
                                         },
-                                        child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              CustomPaint(
-                                                  foregroundPainter: BorderPainter(context),
-                                                  child: Container(
-                                                      alignment: Alignment.center,
-                                                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
-                                                      width: 65,
-                                                      height: 65,
-                                                      child: Icon(Icons.pedal_bike,
-                                                          size: 40, color: Theme.of(context).colorScheme.secondary))),
-                                              const SizedBox(height: 10),
-                                              Text(_pageText[2],
-                                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
-                                            ]))),
+                                        child: tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Icon(Icons.pedal_bike,
+                                                                size: 40,
+                                                                color: Theme.of(context).colorScheme.secondary))),
+                                                    const SizedBox(height: 10),
+                                                    Text(_pageText![2],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    CustomPaint(
+                                                        foregroundPainter: BorderPainter(context),
+                                                        child: Container(
+                                                            alignment: Alignment.center,
+                                                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 4),
+                                                            width: 65,
+                                                            height: 65,
+                                                            child: Icon(Icons.pedal_bike,
+                                                                size: 40,
+                                                                color: Theme.of(context).colorScheme.secondary))),
+                                                    const SizedBox(height: 20),
+                                                    Text(_pageText![2],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 10),
+                                                  ]))),
                           ],
                         ),
                         const SizedBox(height: 40),
@@ -276,17 +376,31 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.file_open_rounded,
-                                                  size: 60, color: Theme.of(context).colorScheme.secondary),
-                                              const SizedBox(height: 10),
-                                              Text(_pageText[3],
-                                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
-                                              const SizedBox(height: 5),
-                                            ])))
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.file_open_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 10),
+                                                    Text(_pageText![3],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.file_open_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 13),
+                                                    Text(_pageText![3],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ])))
                                 : GestureDetector(
                                     onDoubleTap: () {
                                       _setCounter(3);
@@ -294,17 +408,31 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: homeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.file_open_rounded,
-                                                  size: 60, color: Theme.of(context).colorScheme.secondary),
-                                              const SizedBox(height: 10),
-                                              Text(_pageText[3],
-                                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
-                                              const SizedBox(height: 5),
-                                            ]))),
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.file_open_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 10),
+                                                    Text(_pageText![3],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.file_open_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 13),
+                                                    Text(_pageText![3],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ]))),
                             const SizedBox(width: 45),
                             _counter == 4
                                 ? GestureDetector(
@@ -314,17 +442,31 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.thumbs_up_down_rounded,
-                                                  size: 60, color: Theme.of(context).colorScheme.secondary),
-                                              const SizedBox(height: 12),
-                                              Text(_pageText[4],
-                                                  style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
-                                              const SizedBox(height: 8),
-                                            ])))
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.thumbs_up_down_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 12),
+                                                    Text(_pageText![4],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 8),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.thumbs_up_down_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 12),
+                                                    Text(_pageText![4],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ])))
                                 : GestureDetector(
                                     onDoubleTap: () {
                                       _setCounter(4);
@@ -332,17 +474,31 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: homeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.thumbs_up_down_rounded,
-                                                  size: 60, color: Theme.of(context).colorScheme.secondary),
-                                              const SizedBox(height: 12),
-                                              Text(_pageText[4],
-                                                  style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
-                                              const SizedBox(height: 8),
-                                            ]))),
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.thumbs_up_down_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 12),
+                                                    Text(_pageText![4],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 8),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.thumbs_up_down_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 12),
+                                                    Text(_pageText![4],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ]))),
                           ],
                         ),
                         const SizedBox(height: 40),
@@ -364,7 +520,7 @@ class _HomePageState extends State<HomePage> {
                                               Icon(Icons.settings_applications_rounded,
                                                   size: 60, color: Theme.of(context).colorScheme.secondary),
                                               const SizedBox(height: 12),
-                                              Text(_pageText[5],
+                                              Text(_pageText![5],
                                                   style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                               const SizedBox(height: 8),
                                             ])))
@@ -382,7 +538,7 @@ class _HomePageState extends State<HomePage> {
                                               Icon(Icons.settings_applications_rounded,
                                                   size: 60, color: Theme.of(context).colorScheme.secondary),
                                               const SizedBox(height: 12),
-                                              Text(_pageText[5],
+                                              Text(_pageText![5],
                                                   style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                               const SizedBox(height: 8),
                                             ]))),
@@ -402,7 +558,7 @@ class _HomePageState extends State<HomePage> {
                                               Icon(Icons.help_outline_rounded,
                                                   size: 60, color: Theme.of(context).colorScheme.secondary),
                                               const SizedBox(height: 12),
-                                              Text(_pageText[6],
+                                              Text(_pageText![6],
                                                   style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                               const SizedBox(height: 8),
                                             ])))
@@ -420,7 +576,7 @@ class _HomePageState extends State<HomePage> {
                                               Icon(Icons.help_outline_rounded,
                                                   size: 60, color: Theme.of(context).colorScheme.secondary),
                                               const SizedBox(height: 12),
-                                              Text(_pageText[6],
+                                              Text(_pageText![6],
                                                   style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                               const SizedBox(height: 8),
                                             ]))),
@@ -439,17 +595,31 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.mail_outline_rounded,
-                                                  size: 60, color: Theme.of(context).colorScheme.secondary),
-                                              const SizedBox(height: 10),
-                                              Text(_pageText[7],
-                                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
-                                              const SizedBox(height: 5),
-                                            ])))
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.mail_outline_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 10),
+                                                    Text(_pageText![7],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.mail_outline_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 12),
+                                                    Text(_pageText![7],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 7),
+                                                  ])))
                                 : GestureDetector(
                                     onDoubleTap: () {
                                       _setCounter(7);
@@ -458,17 +628,31 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: homeContainer(
                                         context,
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.mail_outline_rounded,
-                                                  size: 60, color: Theme.of(context).colorScheme.secondary),
-                                              const SizedBox(height: 10),
-                                              Text(_pageText[7],
-                                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center),
-                                              const SizedBox(height: 5),
-                                            ]))),
+                                        tts!.getLanguage == "English"
+                                            ? Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.mail_outline_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 10),
+                                                    Text(_pageText![7],
+                                                        style: textTheme(context).labelMedium!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 5),
+                                                  ])
+                                            : Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    Icon(Icons.mail_outline_rounded,
+                                                        size: 60, color: Theme.of(context).colorScheme.secondary),
+                                                    const SizedBox(height: 12),
+                                                    Text(_pageText![7],
+                                                        style: textTheme(context).labelLarge!,
+                                                        textAlign: TextAlign.center),
+                                                    const SizedBox(height: 7),
+                                                  ]))),
                             const SizedBox(width: 45),
                             _counter == 8
                                 ? GestureDetector(
@@ -486,7 +670,7 @@ class _HomePageState extends State<HomePage> {
                                               Icon(Icons.history_toggle_off_rounded,
                                                   size: 60, color: Theme.of(context).colorScheme.secondary),
                                               const SizedBox(height: 12),
-                                              Text(_pageText[8],
+                                              Text(_pageText![8],
                                                   style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                               const SizedBox(height: 8),
                                             ])))
@@ -505,7 +689,7 @@ class _HomePageState extends State<HomePage> {
                                               Icon(Icons.history_toggle_off_rounded,
                                                   size: 60, color: Theme.of(context).colorScheme.secondary),
                                               const SizedBox(height: 12),
-                                              Text(_pageText[8],
+                                              Text(_pageText![8],
                                                   style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
                                               const SizedBox(height: 8),
                                             ]))),
