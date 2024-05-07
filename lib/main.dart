@@ -18,9 +18,9 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      themeMode: AppSettings(context).getTheme == 0
+      themeMode: mainAppSettings.getTheme == 0
           ? ThemeMode.system
-          : AppSettings(context).getTheme == 1
+          : mainAppSettings.getTheme == 1
               ? ThemeMode.light
               : ThemeMode.dark,
       initialRoute: '/welcome1',
@@ -29,6 +29,7 @@ class App extends StatelessWidget {
         '/welcome1': (context) => const WelcomePage1(),
         '/welcome2': (context) => const WelcomePage2(),
         '/welcome_settings1': (context) => const WelcomeSettingsPage1(),
+        '/welcome_settings2': (context) => const WelcomeSettingsPage2(),
       },
     );
   }
