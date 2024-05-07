@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './themes.dart';
 import '../settings.dart';
+import '../tts.dart';
 
 homeContainer(BuildContext context, Widget child) {
   return Container(
@@ -29,9 +30,9 @@ selectedHomeContainer(BuildContext context, Widget child) {
 }
 
 appLogo(BuildContext context, double width, double height) {
-  if (AppSettings(context).getTheme == 1) {
+  if (mainAppSettings.getTheme == 1) {
     return Image.asset('assets/images/OptiCompanion-Transparent - Light.png', width: width, height: height);
-  } else if (AppSettings(context).getTheme == 2) {
+  } else if (mainAppSettings.getTheme == 2) {
     return Image.asset('assets/images/OptiCompanion-Transparent - Dark.png', width: width, height: height);
   } else {
     if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
@@ -46,23 +47,31 @@ nextPageButton(BuildContext context, String route) {
   return GestureDetector(
     onLongPress: () => Navigator.pushNamed(context, route),
     child: Container(
-      width: 220,
-      height: 60,
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('Next', style: textTheme(context).labelLarge),
-          const SizedBox(width: 10),
-          Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
-        ],
-      ),
-    ),
+        width: 200,
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
+        ),
+        child: mainTts.getLanguage == "English"
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Next', style: textTheme(context).bodyMedium),
+                  const SizedBox(width: 10),
+                  Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                  const SizedBox(width: 10),
+                  Text('التالي', style: textTheme(context).bodyMedium),
+                ],
+              )),
   );
 }
 
@@ -70,23 +79,31 @@ selectedNextPageButton(BuildContext context, String route) {
   return GestureDetector(
     onLongPress: () => Navigator.pushNamed(context, route),
     child: Container(
-      width: 220,
-      height: 60,
-      padding: const EdgeInsets.all(8),
+      width: 200,
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // const SizedBox(width: 10),
-          Text('Next', style: textTheme(context).labelLarge),
-          const SizedBox(width: 10),
-          Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
-        ],
-      ),
+      child: mainTts.getLanguage == "English"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Next', style: textTheme(context).bodyMedium),
+                const SizedBox(width: 10),
+                Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                const SizedBox(width: 10),
+                Text('التالي', style: textTheme(context).bodyMedium),
+              ],
+            ),
     ),
   );
 }
@@ -95,22 +112,31 @@ previousPageButton(BuildContext context, String route) {
   return GestureDetector(
     onLongPress: () => Navigator.pushNamed(context, route),
     child: Container(
-      width: 220,
-      height: 60,
-      padding: const EdgeInsets.all(8),
+      width: 200,
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
-          const SizedBox(width: 10),
-          Text('Previous', style: textTheme(context).labelLarge),
-        ],
-      ),
+      child: mainTts.getLanguage == "English"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Previous', style: textTheme(context).bodyMedium),
+                const SizedBox(width: 10),
+                Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                const SizedBox(width: 10),
+                Text('السابق', style: textTheme(context).bodyMedium),
+              ],
+            ),
     ),
   );
 }
@@ -119,22 +145,31 @@ selectedPreviousPageButton(BuildContext context, String route) {
   return GestureDetector(
     onLongPress: () => Navigator.pushNamed(context, route),
     child: Container(
-      width: 220,
-      height: 60,
-      padding: const EdgeInsets.all(8),
+      width: 200,
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 35),
-          const SizedBox(width: 10),
-          Text('Previous', style: textTheme(context).labelLarge),
-        ],
-      ),
+      child: mainTts.getLanguage == "English"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Previous', style: textTheme(context).bodyMedium),
+                const SizedBox(width: 10),
+                Icon(Icons.arrow_back_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.arrow_forward_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                const SizedBox(width: 10),
+                Text('السابق', style: textTheme(context).bodyMedium),
+              ],
+            ),
     ),
   );
 }
