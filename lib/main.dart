@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opticompanion/pages/settings_page_1.dart';
 import './pages/pages.dart';
 import './themes.dart';
 import './settings.dart';
@@ -30,6 +31,8 @@ class App extends StatelessWidget {
         '/welcome2': (context) => const WelcomePage2(),
         '/welcome_settings1': (context) => const WelcomeSettingsPage1(),
         '/welcome_settings2': (context) => const WelcomeSettingsPage2(),
+        '/document_reader': (context) => const DocumentReaderPage(),
+        '/settings1': (context) => const SettingsPage1(),
       },
     );
   }
