@@ -174,9 +174,9 @@ selectedPreviousPageButton(BuildContext context, String route) {
   );
 }
 
-homePageButton(BuildContext context, String route) {
+homePageButton(BuildContext context) {
   return GestureDetector(
-    onLongPress: () => Navigator.pushNamed(context, route),
+    onLongPress: () => Navigator.pushNamed(context, "/home"),
     child: Container(
       width: 200,
       height: 50,
@@ -207,9 +207,11 @@ homePageButton(BuildContext context, String route) {
   );
 }
 
-selectedHomePageButton(BuildContext context, String route) {
+selectedHomePageButton(
+  BuildContext context,
+) {
   return GestureDetector(
-    onLongPress: () => Navigator.pushNamed(context, route),
+    onLongPress: () => Navigator.pushNamed(context, "/home"),
     child: Container(
       width: 200,
       height: 50,
