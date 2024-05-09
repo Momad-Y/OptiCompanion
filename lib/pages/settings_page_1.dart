@@ -29,7 +29,7 @@ class SettingsPage1State extends State<SettingsPage1> {
 
   Tts? tts;
 
-  AppSettings? appSettings;
+  AppSettings? appSettings; // Todo: Add real settings functionality with json file and in app changes
 
   final _pageTextEn = [
     "Adjust settings",
@@ -46,8 +46,8 @@ class SettingsPage1State extends State<SettingsPage1> {
     "Magnifier Settings, it is currently ",
     "Disable Magnifier",
     "Enable Magnifier",
+    "Next page",
     "Home page",
-    "Next page"
   ];
 
   final _pageTextAr = [
@@ -65,8 +65,8 @@ class SettingsPage1State extends State<SettingsPage1> {
     "إعدادات المكبر، حاليًا ",
     "تعطيل المكبر",
     "تمكين المكبر",
+    "الصفحة التالية",
     "الصفحة الرئيسية",
-    "الصفحة التالية"
   ];
 
   List? _pageText = [];
@@ -178,9 +178,9 @@ class SettingsPage1State extends State<SettingsPage1> {
               appSettings!.setIsMagnifierEnabled = true;
             });
           } else if (_counter == 14) {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/settings2');
           } else if (_counter == 15) {
-            Navigator.pushNamed(context, '/welcome_settings2');
+            Navigator.pushNamed(context, '/home');
           } else {
             _speak();
           }
@@ -592,13 +592,13 @@ class SettingsPage1State extends State<SettingsPage1> {
                             _setCounter(14);
                             _speak();
                           },
-                          child: selectedHomePageButton(context, '/home'))
+                          child: selectedNextPageButton(context, '/settings2'))
                       : GestureDetector(
                           onDoubleTap: () {
                             _setCounter(14);
                             _speak();
                           },
-                          child: homePageButton(context, '/home')),
+                          child: nextPageButton(context, '/settings2')),
                   const SizedBox(height: 20),
                   _counter == 15
                       ? GestureDetector(
@@ -606,13 +606,13 @@ class SettingsPage1State extends State<SettingsPage1> {
                             _setCounter(15);
                             _speak();
                           },
-                          child: selectedNextPageButton(context, '/welcome_settings2'))
+                          child: selectedHomePageButton(context))
                       : GestureDetector(
                           onDoubleTap: () {
                             _setCounter(15);
                             _speak();
                           },
-                          child: nextPageButton(context, '/welcome_settings2')),
+                          child: homePageButton(context)),
                 ])))));
   }
 }
