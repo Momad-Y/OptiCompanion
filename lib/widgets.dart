@@ -174,6 +174,72 @@ selectedPreviousPageButton(BuildContext context, String route) {
   );
 }
 
+homePageButton(BuildContext context, String route) {
+  return GestureDetector(
+    onLongPress: () => Navigator.pushNamed(context, route),
+    child: Container(
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
+      ),
+      child: mainTts.getLanguage == "English"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Home', style: textTheme(context).bodyMedium),
+                const SizedBox(width: 10),
+                Icon(Icons.home_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.home_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                const SizedBox(width: 10),
+                Text('الرئيسية', style: textTheme(context).bodyMedium),
+              ],
+            ),
+    ),
+  );
+}
+
+selectedHomePageButton(BuildContext context, String route) {
+  return GestureDetector(
+    onLongPress: () => Navigator.pushNamed(context, route),
+    child: Container(
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
+      ),
+      child: mainTts.getLanguage == "English"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Home', style: textTheme(context).bodyMedium),
+                const SizedBox(width: 10),
+                Icon(Icons.home_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.home_rounded, color: Theme.of(context).colorScheme.secondary, size: 30),
+                const SizedBox(width: 10),
+                Text('الرئيسية', style: textTheme(context).bodyMedium),
+              ],
+            ),
+    ),
+  );
+}
+
 class BorderPainter extends CustomPainter {
   final BuildContext context;
 
