@@ -28,7 +28,7 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
   Tts? tts;
 
   final _pageTextEn = [
-    "Customize Audio Preferences",
+    "Adjust Audio Settings",
     "Select audio speed, current audio speed is ",
     "Audio Speed: 1",
     "Audio Speed: 2",
@@ -46,7 +46,7 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
   ];
 
   final _pageTextAr = [
-    "قم بتخصيص إعدادات الصوت",
+    "ضبط إعدادات الصوت",
     "حدد سرعة الصوت، السرعة الصوتية الحالية هي ",
     "سرعة الصوت: 1",
     "سرعة الصوت: 2",
@@ -124,24 +124,42 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
     return GestureDetector(
         onLongPress: () {
           if (_counter == 2) {
-            tts!.setTtsSpeed(flutterTts!, 1);
+            setState(() {
+              tts!.setTtsSpeed(flutterTts!, 1);
+            });
           } else if (_counter == 3) {
-            tts!.setTtsSpeed(flutterTts!, 2);
+            setState(() {
+              tts!.setTtsSpeed(flutterTts!, 2);
+            });
           } else if (_counter == 4) {
-            tts!.setTtsSpeed(flutterTts!, 3);
+            setState(() {
+              tts!.setTtsSpeed(flutterTts!, 3);
+            });
           } else if (_counter == 5) {
-            tts!.setTtsSpeed(flutterTts!, 4);
+            setState(() {
+              tts!.setTtsSpeed(flutterTts!, 4);
+            });
           } else if (_counter == 6) {
-            tts!.setTtsSpeed(flutterTts!, 5);
+            setState(() {
+              tts!.setTtsSpeed(flutterTts!, 5);
+            });
           } else if (_counter == 8) {
-            tts!.setTtsGender(flutterTts!, "Male");
+            setState(() {
+              tts!.setTtsGender(flutterTts!, "Male");
+            });
           } else if (_counter == 9) {
-            tts!.setTtsGender(flutterTts!, "Female");
+            setState(() {
+              tts!.setTtsGender(flutterTts!, "Female");
+            });
           } else if (_counter == 11) {
-            tts!.setTtsLanguage(flutterTts!, "English");
+            setState(() {
+              tts!.setTtsLanguage(flutterTts!, "English");
+            });
             Navigator.pushNamed(context, '/welcome1');
           } else if (_counter == 12) {
-            tts!.setTtsLanguage(flutterTts!, "Arabic");
+            setState(() {
+              tts!.setTtsLanguage(flutterTts!, "Arabic");
+            });
             Navigator.pushNamed(context, '/welcome1');
           } else if (_counter == 13) {
             Navigator.pushNamed(context, '/welcome_settings1');
@@ -227,7 +245,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _setCounter(2);
                             _speak();
                           },
-                          onLongPress: () => tts!.setTtsSpeed(flutterTts!, 1),
+                          onLongPress: () => setState(() {
+                            tts!.setTtsSpeed(flutterTts!, 1);
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -250,7 +270,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _setCounter(3);
                             _speak();
                           },
-                          onLongPress: () => tts!.setTtsSpeed(flutterTts!, 2),
+                          onLongPress: () => setState(() {
+                            tts!.setTtsSpeed(flutterTts!, 2);
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -273,7 +295,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _setCounter(4);
                             _speak();
                           },
-                          onLongPress: () => tts!.setTtsSpeed(flutterTts!, 3),
+                          onLongPress: () => setState(() {
+                            tts!.setTtsSpeed(flutterTts!, 3);
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -296,7 +320,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _setCounter(5);
                             _speak();
                           },
-                          onLongPress: () => tts!.setTtsSpeed(flutterTts!, 4),
+                          onLongPress: () => setState(() {
+                            tts!.setTtsSpeed(flutterTts!, 4);
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -319,7 +345,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _setCounter(6);
                             _speak();
                           },
-                          onLongPress: () => tts!.setTtsSpeed(flutterTts!, 5),
+                          onLongPress: () => setState(() {
+                            tts!.setTtsSpeed(flutterTts!, 5);
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -377,7 +405,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
-                            tts!.setTtsGender(flutterTts!, "Male");
+                            setState(() {
+                              tts!.setTtsGender(flutterTts!, "Male");
+                            });
                           },
                           child: Container(
                             width: 100,
@@ -403,7 +433,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
-                            tts!.setTtsGender(flutterTts!, "Female");
+                            setState(() {
+                              tts!.setTtsGender(flutterTts!, "Female");
+                            });
                           },
                           child: Container(
                             width: 100,
@@ -456,7 +488,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
-                            tts!.setTtsLanguage(flutterTts!, "English");
+                            setState(() {
+                              tts!.setTtsLanguage(flutterTts!, "English");
+                            });
                             Navigator.pushNamed(context, '/welcome1');
                           },
                           child: Container(
@@ -483,7 +517,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
-                            tts!.setTtsLanguage(flutterTts!, "Arabic");
+                            setState(() {
+                              tts!.setTtsLanguage(flutterTts!, "Arabic");
+                            });
                             Navigator.pushNamed(context, '/welcome1');
                           },
                           child: Container(
