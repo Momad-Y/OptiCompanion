@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   Tts? tts;
 
-  static const List<String> _pageTextEn = [
+  final List<String> _pageTextEn = [
     "Home Screen",
     "Optical Character Recognition",
     "Object Recognition",
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     "History"
   ];
 
-  static const List<String> _pageTextAr = [
+  final List<String> _pageTextAr = [
     "الصفحة الرئيسية",
     "التعرف الضوئي على النصوص",
     "التعرف على الأشياء",
@@ -118,6 +118,9 @@ class _HomePageState extends State<HomePage> {
       // Todo: Long press anywhere to navigate
       onLongPress: () {
         if (_counter == 3) {
+          Navigator.pushNamed(context, '/document_reader');
+        } else if (_counter == 5) {
+          Navigator.pushNamed(context, '/settings1');
         } else {
           _speak();
         }
@@ -374,6 +377,7 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(3);
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/document_reader'),
                                     child: selectedHomeContainer(
                                         context,
                                         tts!.getLanguage == "English"
@@ -406,6 +410,7 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(3);
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/document_reader'),
                                     child: homeContainer(
                                         context,
                                         tts!.getLanguage == "English"
@@ -511,6 +516,7 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(5);
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/settings1'),
                                     child: selectedHomeContainer(
                                         context,
                                         Column(
@@ -529,6 +535,7 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(5);
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/settings1'),
                                     child: homeContainer(
                                         context,
                                         Column(
