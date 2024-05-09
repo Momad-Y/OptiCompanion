@@ -31,8 +31,8 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
 
   AppSettings? appSettings;
 
-  static const _pageTextEn = [
-    "Customize Your Preferences",
+  final _pageTextEn = [
+    "Adjust Settings",
     "Select text size, current text size is ",
     "Text Size: 1",
     "Text Size: 2",
@@ -50,8 +50,8 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     "Next page"
   ];
 
-  static const _pageTextAr = [
-    "قم بتخصيص الإعدادات",
+  final _pageTextAr = [
+    "ضبط الإعدادات",
     "حدد حجم النص، الحجم الحالي هو ",
     "حجم النص: 1",
     "حجم النص: 2",
@@ -138,25 +138,45 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     return GestureDetector(
         onLongPress: () {
           if (_counter == 2) {
-            appSettings!.setTextSize = 1;
+            setState(() {
+              appSettings!.setTextSize = 1;
+            });
           } else if (_counter == 3) {
-            appSettings!.setTextSize = 2;
+            setState(() {
+              appSettings!.setTextSize = 2;
+            });
           } else if (_counter == 4) {
-            appSettings!.setTextSize = 3;
+            setState(() {
+              appSettings!.setTextSize = 3;
+            });
           } else if (_counter == 5) {
-            appSettings!.setTextSize = 4;
+            setState(() {
+              appSettings!.setTextSize = 4;
+            });
           } else if (_counter == 6) {
-            appSettings!.setTextSize = 5;
+            setState(() {
+              appSettings!.setTextSize = 5;
+            });
           } else if (_counter == 8) {
-            appSettings!.setTheme = 0;
+            setState(() {
+              appSettings!.setTheme = 0;
+            });
           } else if (_counter == 9) {
-            appSettings!.setTheme = 1;
+            setState(() {
+              appSettings!.setTheme = 1;
+            });
           } else if (_counter == 10) {
-            appSettings!.setTheme = 2;
+            setState(() {
+              appSettings!.setTheme = 2;
+            });
           } else if (_counter == 12) {
-            appSettings!.setIsMagnifierEnabled = false;
+            setState(() {
+              appSettings!.setIsMagnifierEnabled = false;
+            });
           } else if (_counter == 13) {
-            appSettings!.setIsMagnifierEnabled = true;
+            setState(() {
+              appSettings!.setIsMagnifierEnabled = true;
+            });
           } else if (_counter == 14) {
             Navigator.pushNamed(context, '/welcome2');
           } else if (_counter == 15) {
@@ -241,7 +261,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(2);
                             _speak();
                           },
-                          onLongPress: () => appSettings!.setTextSize = 1,
+                          onLongPress: () => setState(() {
+                            appSettings!.setTextSize = 1;
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -264,7 +286,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(3);
                             _speak();
                           },
-                          onLongPress: () => appSettings!.setTextSize = 2,
+                          onLongPress: () => setState(() {
+                            appSettings!.setTextSize = 2;
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -287,7 +311,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(4);
                             _speak();
                           },
-                          onLongPress: () => appSettings!.setTextSize = 3,
+                          onLongPress: () => setState(() {
+                            appSettings!.setTextSize = 3;
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -310,7 +336,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(5);
                             _speak();
                           },
-                          onLongPress: () => appSettings!.setTextSize = 4,
+                          onLongPress: () => setState(() {
+                            appSettings!.setTextSize = 4;
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -333,7 +361,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _setCounter(6);
                             _speak();
                           },
-                          onLongPress: () => appSettings!.setTextSize = 5,
+                          onLongPress: () => setState(() {
+                            appSettings!.setTextSize = 5;
+                          }),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                             decoration: BoxDecoration(
@@ -395,7 +425,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            appSettings!.setTheme = 0;
+                            setState(() {
+                              appSettings!.setTheme = 0;
+                            });
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -420,7 +452,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            appSettings!.setTheme = 1;
+                            setState(() {
+                              appSettings!.setTheme = 1;
+                            });
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -445,7 +479,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            appSettings!.setTheme = 2;
+                            setState(() {
+                              appSettings!.setTheme = 2;
+                            });
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -500,7 +536,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            appSettings!.setIsMagnifierEnabled = false;
+                            setState(() {
+                              appSettings!.setIsMagnifierEnabled = false;
+                            });
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -525,7 +563,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
                             _speak();
                           },
                           onLongPress: () {
-                            appSettings!.setIsMagnifierEnabled = true;
+                            setState(() {
+                              appSettings!.setIsMagnifierEnabled = true;
+                            });
                           },
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
