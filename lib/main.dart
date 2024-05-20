@@ -12,8 +12,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Todo: Check if it is the first time the app is being run
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
@@ -23,7 +21,7 @@ class App extends StatelessWidget {
           : mainAppSettings.getTheme == 1
               ? ThemeMode.light
               : ThemeMode.dark,
-      initialRoute: '/welcome1',
+      home: const CheckFirstTime(),
       routes: {
         '/home': (context) => const HomePage(),
         '/welcome1': (context) => const WelcomePage1(),
@@ -34,6 +32,7 @@ class App extends StatelessWidget {
         '/settings1': (context) => const SettingsPage1(),
         '/settings2': (context) => const SettingsPage2(),
         '/get_in_touch': (context) => const GetInTouchPage(),
+        '/help': (context) => const HelpPage(),
       },
     );
   }
