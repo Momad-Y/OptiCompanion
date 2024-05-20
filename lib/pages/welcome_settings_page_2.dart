@@ -152,11 +152,17 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
               tts!.setTtsGender(flutterTts!, "Female");
             });
           } else if (_counter == 11) {
+            if (tts!.getLanguage == "English") {
+              return;
+            }
             setState(() {
               tts!.setTtsLanguage(flutterTts!, "English");
             });
             Navigator.pushNamed(context, '/welcome1');
           } else if (_counter == 12) {
+            if (tts!.getLanguage == "Arabic") {
+              return;
+            }
             setState(() {
               tts!.setTtsLanguage(flutterTts!, "Arabic");
             });
@@ -488,6 +494,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
+                            if (tts!.getLanguage == "English") {
+                              return;
+                            }
                             setState(() {
                               tts!.setTtsLanguage(flutterTts!, "English");
                             });
@@ -517,6 +526,9 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
+                            if (tts!.getLanguage == "Arabic") {
+                              return;
+                            }
                             setState(() {
                               tts!.setTtsLanguage(flutterTts!, "Arabic");
                             });
