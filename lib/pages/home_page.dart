@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Tts? tts;
 
   final List<String> _pageTextEn = [
-    "Home Screen",
+    "Home Page",
     "Optical Character Recognition",
     "Object Recognition",
     "Document Reader",
@@ -117,12 +117,16 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       // Todo: Long press anywhere to navigate
       onLongPress: () {
-        if (_counter == 3) {
+        if (_counter == 0) {
+          Navigator.pushNamed(context, '/welcome1'); // Todo: Debug
+        } else if (_counter == 3) {
           Navigator.pushNamed(context, '/document_reader');
         } else if (_counter == 5) {
           Navigator.pushNamed(context, '/settings1');
         } else if (_counter == 7) {
           Navigator.pushNamed(context, '/get_in_touch');
+        } else if (_counter == 6) {
+          Navigator.pushNamed(context, '/help');
         } else {
           _speak();
         }
@@ -558,6 +562,8 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(6);
                                       _speak();
                                     },
+                                    // Todo: Fix??
+                                    onLongPress: () => Navigator.pushNamed(context, '/help'),
                                     child: selectedHomeContainer(
                                         context,
                                         Column(
