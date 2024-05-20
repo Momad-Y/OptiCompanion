@@ -29,7 +29,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
 
   Tts? tts;
 
-  AppSettings? appSettings; // Todo: Add real settings functionality with json file and in app changes
+  AppSettings? appSettings; // Todo: Add real settings functionality with shared_preferences and in app changes
 
   final _pageTextEn = [
     "Adjust Settings",
