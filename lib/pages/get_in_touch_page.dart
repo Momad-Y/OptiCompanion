@@ -142,7 +142,8 @@ class _GetInTouchPageState extends State<GetInTouchPage> {
                         _speak();
                       },
                       child: Container(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+                        width: tts!.getLanguage == "English" ? 280 : 190,
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 7),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
