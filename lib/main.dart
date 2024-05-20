@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:opticompanion/pages/settings_page_1.dart';
 import './pages/pages.dart';
 import './themes.dart';
 import './settings.dart';
@@ -34,6 +33,7 @@ class App extends StatelessWidget {
         '/document_reader': (context) => const DocumentReaderPage(),
         '/settings1': (context) => const SettingsPage1(),
         '/settings2': (context) => const SettingsPage2(),
+        '/get_in_touch': (context) => const GetInTouchPage(),
       },
     );
   }
