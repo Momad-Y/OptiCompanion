@@ -7,3 +7,5 @@ export './document_reader_page.dart';
 export './settings_page_1.dart';
 export './settings_page_2.dart';
 export './get_in_touch_page.dart';
+export './check_first_time.dart';
+export './help_page.dart';
