@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_tts/flutter_tts.dart';
 import '../tts.dart';
@@ -28,7 +27,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
 
   Tts? tts;
 
-  TextEditingController _urlController = TextEditingController();
+  final TextEditingController _urlController = TextEditingController();
 
   final List<String> _pageTextEn = [
     "Document Reader",
