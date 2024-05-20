@@ -152,15 +152,21 @@ class SettingsPage2State extends State<SettingsPage2> {
               tts!.setTtsGender(flutterTts!, "Female");
             });
           } else if (_counter == 11) {
+            if (tts!.getLanguage == "English") {
+              return;
+            }
             setState(() {
               tts!.setTtsLanguage(flutterTts!, "English");
             });
-            Navigator.pushNamed(context, '/welcome1');
+            Navigator.pushNamed(context, '/home');
           } else if (_counter == 12) {
+            if (tts!.getLanguage == "Arabic") {
+              return;
+            }
             setState(() {
               tts!.setTtsLanguage(flutterTts!, "Arabic");
             });
-            Navigator.pushNamed(context, '/welcome1');
+            Navigator.pushNamed(context, '/home');
           } else if (_counter == 13) {
             Navigator.pushNamed(context, '/s');
           } else if (_counter == 14) {
@@ -200,7 +206,8 @@ class SettingsPage2State extends State<SettingsPage2> {
                       _speak();
                     },
                     child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                      width: 300,
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 7),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
@@ -488,10 +495,13 @@ class SettingsPage2State extends State<SettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
+                            if (tts!.getLanguage == "English") {
+                              return;
+                            }
                             setState(() {
                               tts!.setTtsLanguage(flutterTts!, "English");
                             });
-                            Navigator.pushNamed(context, '/welcome1');
+                            Navigator.pushNamed(context, '/home');
                           },
                           child: Container(
                             width: 100,
@@ -517,10 +527,13 @@ class SettingsPage2State extends State<SettingsPage2> {
                             _speak();
                           },
                           onLongPress: () {
+                            if (tts!.getLanguage == "Arabic") {
+                              return;
+                            }
                             setState(() {
                               tts!.setTtsLanguage(flutterTts!, "Arabic");
                             });
-                            Navigator.pushNamed(context, '/welcome1');
+                            Navigator.pushNamed(context, '/home');
                           },
                           child: Container(
                             width: 100,
