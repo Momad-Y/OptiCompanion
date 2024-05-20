@@ -121,6 +121,8 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushNamed(context, '/document_reader');
         } else if (_counter == 5) {
           Navigator.pushNamed(context, '/settings1');
+        } else if (_counter == 7) {
+          Navigator.pushNamed(context, '/get_in_touch');
         } else {
           _speak();
         }
@@ -600,6 +602,8 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
+                                    // Todo: Fix??
+                                    onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: selectedHomeContainer(
                                         context,
                                         tts!.getLanguage == "English"
