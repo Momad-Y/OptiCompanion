@@ -107,93 +107,98 @@ class _WelcomePage1State extends State<WelcomePage1> {
             color: Theme.of(context).colorScheme.primary,
             child: Scaffold(
                 body: SafeArea(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                  const SizedBox(height: 60),
-                  GestureDetector(
+                    child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 60),
+                    GestureDetector(
+                        onDoubleTap: () {
+                          _setCounter(0);
+                          _speak();
+                        },
+                        child: appLogo(context, 180, 180)),
+                    GestureDetector(
                       onDoubleTap: () {
                         _setCounter(0);
                         _speak();
                       },
-                      child: appLogo(context, 180, 180)),
-                  GestureDetector(
-                    onDoubleTap: () {
-                      _setCounter(0);
-                      _speak();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            width: 4,
-                            color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
-                      ),
-                      child: Text(
-                        _pageText![0],
-                        style: textTheme(context).titleLarge!,
-                        textAlign: TextAlign.center,
+                      child: Container(
+                        width: 350,
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              width: 4,
+                              color: _counter == 0 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
+                        ),
+                        child: Text(
+                          _pageText![0],
+                          style: textTheme(context).titleLarge!,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 55),
-                  GestureDetector(
-                    onDoubleTap: () {
-                      _setCounter(1);
-                      _speak();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            width: 4,
-                            color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
-                      ),
-                      child: Text(
-                        _pageText![1],
-                        style: textTheme(context).displayMedium!,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onDoubleTap: () {
-                      _setCounter(2);
-                      _speak();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            width: 4,
-                            color: _counter == 2 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
-                      ),
-                      child: Text(
-                        _pageText![2],
-                        style: textTheme(context).displayMedium!,
-                        textAlign: TextAlign.center,
+                    tts!.getLanguage == "English" ? const SizedBox(height: 45) : const SizedBox(height: 65),
+                    GestureDetector(
+                      onDoubleTap: () {
+                        _setCounter(1);
+                        _speak();
+                      },
+                      child: Container(
+                        width: 350,
+                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              width: 4,
+                              color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
+                        ),
+                        child: Text(
+                          _pageText![1],
+                          style: textTheme(context).displayMedium!,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 90),
-                  _counter == 3
-                      ? GestureDetector(
-                          onDoubleTap: () {
-                            _setCounter(3);
-                            _speak();
-                          },
-                          child: selectedNextPageButton(context, '/welcome2'))
-                      : GestureDetector(
-                          onDoubleTap: () {
-                            _setCounter(3);
-                            _speak();
-                          },
-                          child: nextPageButton(context, '/welcome2')),
-                ])))));
+                    tts!.getLanguage == "English" ? const SizedBox(height: 20) : const SizedBox(height: 30),
+                    GestureDetector(
+                      onDoubleTap: () {
+                        _setCounter(2);
+                        _speak();
+                      },
+                      child: Container(
+                        width: 350,
+                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              width: 4,
+                              color: _counter == 2 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
+                        ),
+                        child: Text(
+                          _pageText![2],
+                          style: textTheme(context).displayMedium!,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    tts!.getLanguage == "English" ? const SizedBox(height: 50) : const SizedBox(height: 90),
+                    _counter == 3
+                        ? GestureDetector(
+                            onDoubleTap: () {
+                              _setCounter(3);
+                              _speak();
+                            },
+                            child: selectedNextPageButton(context, '/welcome2'))
+                        : GestureDetector(
+                            onDoubleTap: () {
+                              _setCounter(3);
+                              _speak();
+                            },
+                            child: nextPageButton(context, '/welcome2')),
+                  ]),
+            )))));
   }
 }
