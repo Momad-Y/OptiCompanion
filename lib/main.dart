@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './pages/pages.dart';
 import './themes.dart';
 import './settings.dart';
-import './camera.dart';
+import './model.dart';
 import 'package:camera/camera.dart';
 
 Future<void> main() async {
@@ -38,6 +38,7 @@ class App extends StatelessWidget {
         '/get_in_touch': (context) => const GetInTouchPage(),
         '/help': (context) => const HelpPage(),
         '/ocr': (context) => const OCRPage(),
+        '/object_recognition': (context) => const ObjectRecognitionPage(),
       },
     );
   }
