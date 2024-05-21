@@ -20,7 +20,6 @@ class _CheckFirstTimeState extends State<CheckFirstTime> {
   startTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? firstTime = prefs.getBool('first_time');
-    log("firstTime: $firstTime");
     var duration = const Duration(seconds: 0);
 
     // Navigate to home page if not first time
