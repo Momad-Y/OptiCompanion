@@ -10,3 +10,4 @@ export './get_in_touch_page.dart';
 export './check_first_time.dart';
 export './help_page.dart';
 export './ocr_page.dart';
+export './object_recognition_page.dart';
