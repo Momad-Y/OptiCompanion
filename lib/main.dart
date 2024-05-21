@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import './pages/pages.dart';
 import './themes.dart';
 import './settings.dart';
+import './camera.dart';
+import 'package:camera/camera.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   runApp(const App());
 }
 
@@ -33,6 +37,7 @@ class App extends StatelessWidget {
         '/settings2': (context) => const SettingsPage2(),
         '/get_in_touch': (context) => const GetInTouchPage(),
         '/help': (context) => const HelpPage(),
+        '/ocr': (context) => const OCRPage(),
       },
     );
   }
