@@ -27,9 +27,9 @@ class _GetInTouchPageState extends State<GetInTouchPage> {
 
   Tts? tts;
 
-  final List<String> _pageTextEn = ["Get in Touch With Me", "Email", "LinkedIn", "GitHub", "Home Page"];
+  static const List<String> _pageTextEn = ["Get in Touch With Me", "Email", "LinkedIn", "GitHub", "Home Page"];
 
-  final List<String> _pageTextAr = ["تواصل معي", "البريد الإلكتروني", "لينكد إن", "جيت هاب", "الصفحة الرئيسية"];
+  static const List<String> _pageTextAr = ["تواصل معي", "البريد الإلكتروني", "لينكد إن", "جيت هاب", "الصفحة الرئيسية"];
 
   List? _pageText = [];
 

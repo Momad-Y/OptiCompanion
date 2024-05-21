@@ -27,7 +27,7 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
 
   Tts? tts;
 
-  final _pageTextEn = [
+  static const _pageTextEn = [
     "Adjust Audio Settings",
     "Select audio speed, current audio speed is ",
     "Audio Speed: 1",
@@ -45,7 +45,7 @@ class WelcomeSettingsPage2State extends State<WelcomeSettingsPage2> {
     "Next page"
   ];
 
-  final _pageTextAr = [
+  static const _pageTextAr = [
     "ضبط إعدادات الصوت",
     "حدد سرعة الصوت، السرعة الصوتية الحالية هي ",
     "سرعة الصوت: 1",

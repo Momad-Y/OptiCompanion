@@ -31,7 +31,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
 
   AppSettings? appSettings; // Todo: Add real settings functionality with shared_preferences and in app changes
 
-  final _pageTextEn = [
+  static const _pageTextEn = [
     "Adjust Settings",
     "Select text size, current text size is ",
     "Text Size: 1",
@@ -50,7 +50,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     "Next page"
   ];
 
-  final _pageTextAr = [
+  static const _pageTextAr = [
     "ضبط الإعدادات",
     "حدد حجم النص، الحجم الحالي هو ",
     "حجم النص: 1",

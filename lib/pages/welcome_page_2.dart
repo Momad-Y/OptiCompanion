@@ -27,14 +27,14 @@ class _WelcomePage2State extends State<WelcomePage2> {
 
   Tts? tts;
 
-  final _pageTextEn = [
+  static const _pageTextEn = [
     "Double tap on a button or piece of text to select it.",
     "To activate an item you have selected, long press on it or long press anywhere on the screen.",
     "Previous page",
     "Next page"
   ];
 
-  final _pageTextAr = [
+  static const _pageTextAr = [
     "اضغط مرتين على زر أو قطعة نص لتحديدها",
     "لتفعيل العنصر الذي قمت بتحديده، اضغط بشكل مطول عليه أو اضغط بشكل مطول في أي مكان على الشاشة",
     "الصفحة السابقة",

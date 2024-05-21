@@ -27,7 +27,7 @@ class _HelpPageState extends State<HelpPage> {
 
   Tts? tts;
 
-  final _pageTextEn = [
+  static const _pageTextEn = [
     "Help Page",
     "Swipe left or right anywhere on the screen to navigate between buttons or text.",
     "When an item is selected, it will be highlighted, fully shown on the screen, and read out aloud.",
@@ -36,7 +36,7 @@ class _HelpPageState extends State<HelpPage> {
     "Home page",
   ];
 
-  final _pageTextAr = [
+  static const _pageTextAr = [
     "صفحة المساعدة",
     "اسحب يمينًا أو يسارًا في أي مكان على الشاشة للتنقل بين الأزرار أو النص",
     "عند تحديد عنصر ما، سيتم تحديده، وعرضه بالكامل على الشاشة، وقراءته بصوت عال",

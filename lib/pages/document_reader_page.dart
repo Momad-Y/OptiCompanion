@@ -29,7 +29,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
 
   final TextEditingController _urlController = TextEditingController();
 
-  final List<String> _pageTextEn = [
+  static const List<String> _pageTextEn = [
     "Document Reader",
     "Upload Document",
     "Upload Status: ",
@@ -40,7 +40,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
     "Home"
   ];
 
-  final List<String> _pageTextAr = [
+  static const _pageTextAr = [
     "قارئ المستندات",
     "تحميل المستند",
     "حالة التحميل: ",

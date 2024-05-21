@@ -42,7 +42,7 @@ class _OCRPageState extends State<OCRPage> {
 
   bool _isAccessDenied = false;
 
-  List<String> _pageTextEn = [
+  static const List<String> _pageTextEn = [
     "Previous page",
     "OCR Page",
     "Turn on flashlight",
@@ -50,7 +50,7 @@ class _OCRPageState extends State<OCRPage> {
     "Pause the Camera",
   ];
 
-  List<String> _pageTextAr = [
+  static const List<String> _pageTextAr = [
     "الصفحة السابقة",
     "صفحة التعرف الضوئي على النصوص",
     "تشغيل الفلاش",

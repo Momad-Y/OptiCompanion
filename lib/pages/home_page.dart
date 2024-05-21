@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   Tts? tts;
 
-  final List<String> _pageTextEn = [
+  static const List<String> _pageTextEn = [
     "Home Page",
     "Optical Character Recognition",
     "Object Recognition",
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     "History"
   ];
 
-  final List<String> _pageTextAr = [
+  static const List<String> _pageTextAr = [
     "الصفحة الرئيسية",
     "التعرف الضوئي على النصوص",
     "التعرف على الأشياء",
