@@ -9,3 +9,4 @@ export './settings_page_2.dart';
 export './get_in_touch_page.dart';
 export './check_first_time.dart';
 export './help_page.dart';
+export './ocr_page.dart';
