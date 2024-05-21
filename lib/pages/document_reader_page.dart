@@ -58,7 +58,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   List? _dialogText = [];
   List? _pageText = [];
 
-  String? _selectedLink;
+  // String? _selectedLink;
 
   @override
   initState() {
