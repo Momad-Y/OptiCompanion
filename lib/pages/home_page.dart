@@ -119,14 +119,16 @@ class _HomePageState extends State<HomePage> {
       onLongPress: () {
         if (_counter == 0) {
           Navigator.pushNamed(context, '/welcome1'); // Todo: Debug
+        } else if (_counter == 1) {
+          Navigator.pushNamed(context, '/ocr');
         } else if (_counter == 3) {
           Navigator.pushNamed(context, '/document_reader');
         } else if (_counter == 5) {
           Navigator.pushNamed(context, '/settings1');
-        } else if (_counter == 7) {
-          Navigator.pushNamed(context, '/get_in_touch');
         } else if (_counter == 6) {
           Navigator.pushNamed(context, '/help');
+        } else if (_counter == 7) {
+          Navigator.pushNamed(context, '/get_in_touch');
         } else {
           _speak();
         }
@@ -197,6 +199,7 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/ocr'),
                                     child: selectedHomeContainer(
                                         context,
                                         tts!.getLanguage == "English"
@@ -238,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/ocr'),
                                     child: homeContainer(
                                         context,
                                         tts!.getLanguage == "English"
@@ -562,7 +566,6 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(6);
                                       _speak();
                                     },
-                                    // Todo: Fix??
                                     onLongPress: () => Navigator.pushNamed(context, '/help'),
                                     child: selectedHomeContainer(
                                         context,
@@ -582,6 +585,7 @@ class _HomePageState extends State<HomePage> {
                                       _setCounter(6);
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/help'),
                                     child: homeContainer(
                                         context,
                                         Column(
@@ -608,7 +612,6 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
-                                    // Todo: Fix??
                                     onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: selectedHomeContainer(
                                         context,
@@ -643,6 +646,7 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: homeContainer(
                                         context,
                                         tts!.getLanguage == "English"
