@@ -121,6 +121,8 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushNamed(context, '/welcome1'); // Todo: Debug
         } else if (_counter == 1) {
           Navigator.pushNamed(context, '/ocr');
+        } else if (_counter == 2) {
+          Navigator.pushNamed(context, '/object_recognition');
         } else if (_counter == 3) {
           Navigator.pushNamed(context, '/document_reader');
         } else if (_counter == 5) {
@@ -285,6 +287,7 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
+                                    onLongPress: () => Navigator.pushNamed(context, '/object_recognition'),
                                     child: selectedHomeContainer(
                                         context,
                                         tts!.getLanguage == "English"
@@ -335,6 +338,7 @@ class _HomePageState extends State<HomePage> {
                                           _scrollPage();
                                           _speak();
                                         },
+                                        onLongPress: () => Navigator.pushNamed(context, '/object_recognition'),
                                         child: tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
