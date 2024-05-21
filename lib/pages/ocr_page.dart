@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ import '../tts.dart';
 
 import '../themes.dart';
 
-import '../camera.dart';
+import '../model.dart';
 
 import 'package:camera/camera.dart';
 
@@ -32,7 +33,7 @@ class _OCRPageState extends State<OCRPage> {
 
   late CameraController _cameraController;
 
-  bool _isCameraInitialized = false;
+  bool _isCameraInitialized = true;
 
   bool _isFlashOn = false;
 
@@ -42,7 +43,9 @@ class _OCRPageState extends State<OCRPage> {
 
   bool _isAccessDenied = false;
 
-  static const List<String> _pageTextEn = [
+  TfliteModel textDetector = TfliteModel();
+
+  final List<String> _pageTextEn = [
     "Previous page",
     "OCR Page",
     "Turn on flashlight",
@@ -50,7 +53,7 @@ class _OCRPageState extends State<OCRPage> {
     "Pause the Camera",
   ];
 
-  static const List<String> _pageTextAr = [
+  final List<String> _pageTextAr = [
     "الصفحة السابقة",
     "صفحة التعرف الضوئي على النصوص",
     "تشغيل الفلاش",
@@ -75,18 +78,18 @@ class _OCRPageState extends State<OCRPage> {
   @override
   initState() {
     super.initState();
+    initialize();
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _errorText = tts!.getLanguage == "English" ? _errorTextEn : _errorTextAr;
-
-    _initializeCamera();
     _speak();
   }
 
   @override
   void dispose() {
     _cameraController.dispose();
+
     super.dispose();
   }
 
@@ -116,7 +119,8 @@ class _OCRPageState extends State<OCRPage> {
     });
   }
 
-  void _initializeCamera() {
+  Future<void> initialize() async {
+    textDetector.initModel("ocr");
     _cameraController = CameraController(cameras[0], ResolutionPreset.ultraHigh);
     _cameraController.initialize().then((_) {
       if (!mounted) return;
@@ -126,6 +130,7 @@ class _OCRPageState extends State<OCRPage> {
         _isAccessDenied = false;
         _isCameraError = false;
       });
+      _startImageStream();
     }).catchError((error) {
       if (error is CameraException) {
         switch (error.code) {
@@ -143,6 +148,17 @@ class _OCRPageState extends State<OCRPage> {
             break;
         }
       }
+    });
+  }
+
+  void _startImageStream() {
+    // if (!textDetector.isModel1Loaded || !textDetector.isModel2Loaded) {
+    //   log('Model not loaded');
+    //   return;
+    // }
+
+    _cameraController.startImageStream((cameraImage) async {
+      textDetector.modelStreamOCR(cameraImage);
     });
   }
 
@@ -179,6 +195,17 @@ class _OCRPageState extends State<OCRPage> {
     }
   }
 
+  void _turnOffFlash() {
+    if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
+      if (_isFlashOn) {
+        _cameraController.setFlashMode(FlashMode.off);
+        setState(() {
+          _isFlashOn = false;
+        });
+      }
+    }
+  }
+
   Future<void> _speak() async {
     await flutterTts!.speak(_pageText![_counter]);
   }
@@ -192,6 +219,7 @@ class _OCRPageState extends State<OCRPage> {
     return GestureDetector(
       onLongPress: () {
         if (_counter == 0) {
+          _turnOffFlash();
           Navigator.pushNamed(context, '/home');
         } else if (_counter == 2) {
           _toggleFlash();
@@ -223,6 +251,7 @@ class _OCRPageState extends State<OCRPage> {
                     _speak();
                   },
                   onLongPress: () {
+                    _turnOffFlash();
                     Navigator.pushNamed(context, '/home');
                   },
                   child:
