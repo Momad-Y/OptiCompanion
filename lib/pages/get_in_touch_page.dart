@@ -24,11 +24,9 @@ class _GetInTouchPageState extends State<GetInTouchPage> {
   static const int _velocityThreshold = 1;
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
   static const List<String> _pageTextEn = ["Get in Touch With Me", "Email", "LinkedIn", "GitHub", "Home Page"];
-
   static const List<String> _pageTextAr = ["تواصل معي", "البريد الإلكتروني", "لينكد إن", "جيت هاب", "الصفحة الرئيسية"];
 
   List? _pageText = [];
