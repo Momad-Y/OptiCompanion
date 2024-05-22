@@ -24,7 +24,6 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   static const int _velocityThreshold = 1;
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
   final TextEditingController _urlController = TextEditingController();
