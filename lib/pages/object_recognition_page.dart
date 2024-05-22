@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_tts/flutter_tts.dart';
@@ -8,8 +8,9 @@ import '../tts.dart';
 import '../themes.dart';
 
 import '../camera.dart';
-
 import 'package:camera/camera.dart';
+
+import '../model.dart';
 
 class ObjectRecognitionPage extends StatefulWidget {
   const ObjectRecognitionPage({super.key});
@@ -29,7 +30,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   FlutterTts? flutterTts;
   Tts? tts;
 
-  late CameraController cameraController;
+  CameraController? cameraController;
   late AppCamera appCamera;
 
   bool _isCameraInitialized = false;
@@ -70,8 +71,8 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
 
   @override
   initState() {
-    super.initState();
     appCamera = mainAppCamera;
+    super.initState();
     _initializeCamera();
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts);
@@ -82,7 +83,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
 
   @override
   void dispose() {
-    cameraController.dispose();
+    cameraController!.dispose();
     super.dispose();
   }
 
@@ -112,9 +113,10 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     });
   }
 
-  void _initializeCamera() {
+  Future<void> _initializeCamera() async {
+    AppTfliteModel.loadModel();
     cameraController = CameraController(appCamera.cameras[0], ResolutionPreset.ultraHigh);
-    cameraController.initialize().then((_) {
+    cameraController!.initialize().then((_) {
       if (!mounted) return;
 
       setState(() {
@@ -122,6 +124,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
         _isAccessDenied = false;
         _isCameraError = false;
       });
+      _startImageStream();
     }).catchError((error) {
       if (error is CameraException) {
         switch (error.code) {
@@ -142,9 +145,25 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     });
   }
 
+  void _startImageStream() {
+    if (!AppTfliteModel.getIsModelLoaded) {
+      return;
+    }
+
+    cameraController!.startImageStream((cameraImage) async {
+      var predictions = await AppTfliteModel.classifyStream(cameraImage);
+      int length = predictions == null ? 0 : predictions.length;
+      var first = predictions == null ? null : predictions[0];
+
+      log("Predictions: $first");
+      log("Predictions length: $length");
+      log("Predictions data type: ${first.runtimeType}");
+    });
+  }
+
   void _toggleFlash() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
-      cameraController.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
+      cameraController!.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
       if (_isFlashOn) {
         _pageText![2] = tts!.getLanguage == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
         _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
@@ -161,11 +180,11 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   void _togglePause() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isPaused) {
-        cameraController.resumePreview();
+        cameraController!.resumePreview();
         _pageText![4] = tts!.getLanguage == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
         _speakSelected(tts!.getLanguage == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
       } else {
-        cameraController.pausePreview();
+        cameraController!.pausePreview();
         _pageText![4] = tts!.getLanguage == "English" ? "Resume the Camera" : "استئناف الكاميرا";
         _speakSelected(tts!.getLanguage == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
       }
@@ -178,7 +197,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   void _turnOffFlash() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isFlashOn) {
-        cameraController.setFlashMode(FlashMode.off);
+        cameraController!.setFlashMode(FlashMode.off);
         setState(() {
           _isFlashOn = false;
         });
@@ -277,13 +296,13 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
                   width: MediaQuery.of(context).size.width,
                   child: AspectRatio(
                     aspectRatio: _isCameraInitialized &&
-                            cameraController.value.isInitialized &&
+                            cameraController!.value.isInitialized &&
                             !_isAccessDenied &&
                             !_isCameraError
-                        ? cameraController.value.aspectRatio
+                        ? cameraController!.value.aspectRatio
                         : MediaQuery.of(context).size.width / MediaQuery.of(context).size.height,
                     child: CameraPreview(
-                      cameraController,
+                      cameraController!,
                     ),
                   ),
                 ),
