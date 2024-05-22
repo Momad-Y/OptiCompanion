@@ -8,10 +8,10 @@ class Tts {
   int _volume = 10;
   String _gender = "Female";
 
-  FlutterTts initTts(FlutterTts? flutterTts) {
+  FlutterTts initTts(FlutterTts? flutterTts, bool awaitSpeakCompletion) {
     flutterTts = FlutterTts();
 
-    _setAwaitOptions(flutterTts);
+    _setAwaitOptions(flutterTts, awaitSpeakCompletion);
 
     setTtsLanguage(flutterTts, _language);
     setTtsSpeed(flutterTts, 3);
@@ -21,8 +21,8 @@ class Tts {
     return flutterTts;
   }
 
-  Future<void> _setAwaitOptions(FlutterTts flutterTts) async {
-    await flutterTts.awaitSpeakCompletion(false);
+  Future<void> _setAwaitOptions(FlutterTts flutterTts, bool value) async {
+    await flutterTts.awaitSpeakCompletion(value);
   }
 
   FlutterTts setTtsLanguage(FlutterTts flutterTts, String language) {
