@@ -24,7 +24,6 @@ class _WelcomePage2State extends State<WelcomePage2> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
   static const _pageTextEn = [
