@@ -37,7 +37,7 @@ dependencies:
     url_launcher: ^6.2.6
     shared_preferences: ^2.2.3
     camera: ^0.11.0
-    tflite_flutter: ^0.10.4
+    tflite_v2: ^1.0.0
 
 dev_dependencies:
     flutter_test:
