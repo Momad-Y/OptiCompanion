@@ -26,10 +26,9 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
-  AppSettings? appSettings; // Todo: Add real settings functionality with shared_preferences and in app changes
+  AppSettings? appSettings;
 
   static const _pageTextEn = [
     "Adjust Settings",
