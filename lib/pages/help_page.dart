@@ -24,7 +24,6 @@ class _HelpPageState extends State<HelpPage> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
   static const _pageTextEn = [
@@ -35,7 +34,6 @@ class _HelpPageState extends State<HelpPage> {
     "To activate an item you have selected, long press on it or long press anywhere on the screen.",
     "Home page",
   ];
-
   static const _pageTextAr = [
     "صفحة المساعدة",
     "اسحب يمينًا أو يسارًا في أي مكان على الشاشة للتنقل بين الأزرار أو النص",
