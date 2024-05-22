@@ -115,10 +115,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // Todo: Long press anywhere to navigate
+      /*
+        TODO: Add History Page
+        TODO: Complete Document Reader
+      
+      */
       onLongPress: () {
         if (_counter == 0) {
-          Navigator.pushNamed(context, '/welcome1'); // Todo: Debug
+          Navigator.pushNamed(context, '/welcome1'); // TODO: Debug
         } else if (_counter == 1) {
           Navigator.pushNamed(context, '/ocr');
         } else if (_counter == 2) {
