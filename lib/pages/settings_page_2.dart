@@ -24,7 +24,6 @@ class SettingsPage2State extends State<SettingsPage2> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
   static const _pageTextEn = [
