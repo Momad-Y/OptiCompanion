@@ -7,7 +7,7 @@ import '../tts.dart';
 
 import '../themes.dart';
 
-import '../model.dart';
+import '../camera.dart';
 
 import 'package:camera/camera.dart';
 
@@ -27,19 +27,15 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
-  late CameraController _cameraController;
+  late CameraController cameraController;
+  late AppCamera appCamera;
 
   bool _isCameraInitialized = false;
-
   bool _isFlashOn = false;
-
   bool _isPaused = false;
-
   bool _isCameraError = false;
-
   bool _isAccessDenied = false;
 
   final List<String> _pageTextEn = [
@@ -75,18 +71,18 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   @override
   initState() {
     super.initState();
+    appCamera = mainAppCamera;
+    _initializeCamera();
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _errorText = tts!.getLanguage == "English" ? _errorTextEn : _errorTextAr;
-
-    _initializeCamera();
     _speak();
   }
 
   @override
   void dispose() {
-    _cameraController.dispose();
+    cameraController.dispose();
     super.dispose();
   }
 
@@ -117,8 +113,8 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   }
 
   void _initializeCamera() {
-    _cameraController = CameraController(cameras[0], ResolutionPreset.ultraHigh);
-    _cameraController.initialize().then((_) {
+    cameraController = CameraController(appCamera.cameras[0], ResolutionPreset.ultraHigh);
+    cameraController.initialize().then((_) {
       if (!mounted) return;
 
       setState(() {
@@ -148,7 +144,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
 
   void _toggleFlash() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
-      _cameraController.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
+      cameraController.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
       if (_isFlashOn) {
         _pageText![2] = tts!.getLanguage == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
         _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
@@ -165,11 +161,11 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   void _togglePause() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isPaused) {
-        _cameraController.resumePreview();
+        cameraController.resumePreview();
         _pageText![4] = tts!.getLanguage == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
         _speakSelected(tts!.getLanguage == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
       } else {
-        _cameraController.pausePreview();
+        cameraController.pausePreview();
         _pageText![4] = tts!.getLanguage == "English" ? "Resume the Camera" : "استئناف الكاميرا";
         _speakSelected(tts!.getLanguage == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
       }
@@ -182,7 +178,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   void _turnOffFlash() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isFlashOn) {
-        _cameraController.setFlashMode(FlashMode.off);
+        cameraController.setFlashMode(FlashMode.off);
         setState(() {
           _isFlashOn = false;
         });
@@ -256,7 +252,6 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
                     ),
                     child: Text(
                       tts!.getLanguage == "English" ? "OR" : "ت.ش",
-                      // _pageText![1],
                     ),
                   ),
                 ),
@@ -282,13 +277,13 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
                   width: MediaQuery.of(context).size.width,
                   child: AspectRatio(
                     aspectRatio: _isCameraInitialized &&
-                            _cameraController.value.isInitialized &&
+                            cameraController.value.isInitialized &&
                             !_isAccessDenied &&
                             !_isCameraError
-                        ? _cameraController.value.aspectRatio
+                        ? cameraController.value.aspectRatio
                         : MediaQuery.of(context).size.width / MediaQuery.of(context).size.height,
                     child: CameraPreview(
-                      _cameraController,
+                      cameraController,
                     ),
                   ),
                 ),
