@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import './pages/pages.dart';
 import './themes.dart';
 import './settings.dart';
-import './model.dart';
-import 'package:camera/camera.dart';
+import 'camera.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  cameras = await availableCameras();
+  await mainAppCamera.initCameras();
   runApp(const App());
 }
 
