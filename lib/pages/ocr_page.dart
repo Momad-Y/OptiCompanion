@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ import '../tts.dart';
 
 import '../themes.dart';
 
-import '../model.dart';
+import '../camera.dart';
 
 import 'package:camera/camera.dart';
 
@@ -28,22 +27,16 @@ class _OCRPageState extends State<OCRPage> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
   late CameraController _cameraController;
+  late AppCamera appCamera;
 
-  bool _isCameraInitialized = true;
-
+  bool _isCameraInitialized = false;
   bool _isFlashOn = false;
-
   bool _isPaused = false;
-
   bool _isCameraError = false;
-
   bool _isAccessDenied = false;
-
-  TfliteModel textDetector = TfliteModel();
 
   final List<String> _pageTextEn = [
     "Previous page",
@@ -78,7 +71,8 @@ class _OCRPageState extends State<OCRPage> {
   @override
   initState() {
     super.initState();
-    initialize();
+    appCamera = mainAppCamera;
+    _initializeCamera();
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
@@ -119,9 +113,8 @@ class _OCRPageState extends State<OCRPage> {
     });
   }
 
-  Future<void> initialize() async {
-    textDetector.initModel("ocr");
-    _cameraController = CameraController(cameras[0], ResolutionPreset.ultraHigh);
+  void _initializeCamera() {
+    _cameraController = CameraController(appCamera.cameras[0], ResolutionPreset.ultraHigh);
     _cameraController.initialize().then((_) {
       if (!mounted) return;
 
@@ -130,7 +123,6 @@ class _OCRPageState extends State<OCRPage> {
         _isAccessDenied = false;
         _isCameraError = false;
       });
-      _startImageStream();
     }).catchError((error) {
       if (error is CameraException) {
         switch (error.code) {
@@ -148,17 +140,6 @@ class _OCRPageState extends State<OCRPage> {
             break;
         }
       }
-    });
-  }
-
-  void _startImageStream() {
-    // if (!textDetector.isModel1Loaded || !textDetector.isModel2Loaded) {
-    //   log('Model not loaded');
-    //   return;
-    // }
-
-    _cameraController.startImageStream((cameraImage) async {
-      textDetector.modelStreamOCR(cameraImage);
     });
   }
 
