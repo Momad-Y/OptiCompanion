@@ -26,10 +26,9 @@ class SettingsPage1State extends State<SettingsPage1> {
   ScrollController controller = ScrollController();
 
   FlutterTts? flutterTts;
-
   Tts? tts;
 
-  AppSettings? appSettings; // Todo: Add real settings functionality with shared_preferences and in app changes
+  AppSettings? appSettings;
 
   static const _pageTextEn = [
     "Adjust settings",
@@ -49,7 +48,6 @@ class SettingsPage1State extends State<SettingsPage1> {
     "Next page",
     "Home page",
   ];
-
   static const _pageTextAr = [
     "ضبط الإعدادات",
     "حدد حجم النص، الحجم الحالي هو ",
