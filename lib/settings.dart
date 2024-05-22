@@ -1,5 +1,6 @@
 AppSettings mainAppSettings = AppSettings();
 
+// TODO: Add real settings functionality with shared_preferences and in app changes
 class AppSettings {
   int _textSize = 2;
 
