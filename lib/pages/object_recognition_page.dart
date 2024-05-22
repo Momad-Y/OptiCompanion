@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_tts/flutter_tts.dart';
@@ -159,7 +158,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   initState() {
     appCamera = mainAppCamera;
     super.initState();
-    _initializeCamera();
+    _initialize();
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts, true);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
@@ -169,7 +168,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
 
     _speak();
     _speakSelected(tts!.getLanguage == "English"
-        ? "Detecting objects will be read out loud starting from the left to the right and displayed on the screen."
+        ? "Detected objects will be read out loud starting from the left to the right and displayed on the screen."
         : "سيتم قراءة الأشياء المكتشفة بصوت عالي من اليسار إلى اليمين وعرضها على الشاشة.");
   }
 
@@ -199,8 +198,8 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     });
   }
 
-  Future<void> _initializeCamera() async {
-    AppTfliteModel.loadModel();
+  Future<void> _initialize() async {
+    AppTfliteModel.loadObjectDetectionModel();
     cameraController = CameraController(appCamera.cameras[0], ResolutionPreset.ultraHigh);
     cameraController!.initialize().then((_) {
       if (!mounted) return;
@@ -232,15 +231,14 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
   }
 
   void _startImageStream() {
-    if (!AppTfliteModel.getIsModelLoaded || _isAccessDenied || _isCameraError || _isPaused) {
+    if (!AppTfliteModel.getIsObjectDetectionModelLoaded || _isAccessDenied || _isCameraError || _isPaused) {
       return;
     }
 
     cameraController!.startImageStream((cameraImage) async {
-      var predictions = await AppTfliteModel.classifyStream(cameraImage);
+      var predictions = await AppTfliteModel.detectObjectsStream(cameraImage);
 
       if (_isPaused) {
-        log("Camera is paused");
         setState(() {
           _pageText![3] = tts!.getLanguage == "English" ? "Camera is paused" : "تم إيقاف الكاميرا";
         });
@@ -262,11 +260,6 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
 
       // Sort the elements from the left to the right
       top3Predictions.sort((a, b) => a["rect"]["x"].compareTo(b["rect"]["x"]));
-
-      // Log the confidence level and the detected objects names
-      for (var prediction in top3Predictions) {
-        log("Confidence: ${prediction["confidenceInClass"]}, Detected object: ${prediction["detectedClass"]}, x: ${prediction["rect"]["x"]}");
-      }
 
       // Get the detected objects names
       List detectedObjectsEn = top3Predictions.map((prediction) => prediction["detectedClass"]).toList();
@@ -293,7 +286,6 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
           _speakSelected(detectedObjects[0]);
         }
       });
-      log(_pageText![3]);
     });
   }
 
