@@ -74,10 +74,12 @@ class _OCRPageState extends State<OCRPage> {
     appCamera = mainAppCamera;
     _initializeCamera();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, false);
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    _errorText = tts!.getLanguage == "English" ? _errorTextEn : _errorTextAr;
-    _speak();
+    tts!.initPrefs().then((_) => {
+          flutterTts = tts!.initTts(false),
+          _speak(),
+        });
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
+    _errorText = tts!.getLanguage() == "English" ? _errorTextEn : _errorTextAr;
   }
 
   // @override
@@ -147,11 +149,11 @@ class _OCRPageState extends State<OCRPage> {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       cameraController.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
       if (_isFlashOn) {
-        _pageText![2] = tts!.getLanguage == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
-        _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
+        _pageText![2] = tts!.getLanguage() == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
+        _speakSelected(tts!.getLanguage() == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
       } else {
-        _pageText![2] = tts!.getLanguage == "English" ? "Turn off flashlight" : "إطفاء الفلاش";
-        _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned on" : "تم تشغيل الفلاش");
+        _pageText![2] = tts!.getLanguage() == "English" ? "Turn off flashlight" : "إطفاء الفلاش";
+        _speakSelected(tts!.getLanguage() == "English" ? "Flashlight turned on" : "تم تشغيل الفلاش");
       }
       setState(() {
         _isFlashOn = !_isFlashOn;
@@ -163,12 +165,12 @@ class _OCRPageState extends State<OCRPage> {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isPaused) {
         cameraController.resumePreview();
-        _pageText![4] = tts!.getLanguage == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
-        _speakSelected(tts!.getLanguage == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
+        _pageText![4] = tts!.getLanguage() == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
+        _speakSelected(tts!.getLanguage() == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
       } else {
         cameraController.pausePreview();
-        _pageText![4] = tts!.getLanguage == "English" ? "Resume the Camera" : "استئناف الكاميرا";
-        _speakSelected(tts!.getLanguage == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
+        _pageText![4] = tts!.getLanguage() == "English" ? "Resume the Camera" : "استئناف الكاميرا";
+        _speakSelected(tts!.getLanguage() == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
       }
       setState(() {
         _isPaused = !_isPaused;
@@ -252,7 +254,7 @@ class _OCRPageState extends State<OCRPage> {
                           color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                     ),
                     child: Text(
-                      tts!.getLanguage == "English" ? "OCR" : "ت.ض.ن",
+                      tts!.getLanguage() == "English" ? "OCR" : "ت.ض.ن",
                     ),
                   ),
                 ),
