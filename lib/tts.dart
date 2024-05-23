@@ -1,31 +1,70 @@
+import 'dart:developer';
+
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Tts mainTts = Tts();
 
 class Tts {
+  SharedPreferences? prefs;
+
+  FlutterTts flutterTts = FlutterTts();
+
   String _language = "Arabic";
   int _speed = 3;
+  double _modifiedSpeed = 0.6;
   int _volume = 10;
   String _gender = "Female";
 
-  FlutterTts initTts(FlutterTts? flutterTts, bool awaitSpeakCompletion) {
-    flutterTts = FlutterTts();
+  FlutterTts initTts(bool awaitSpeakCompletion) {
+    _setAwaitOptions(awaitSpeakCompletion);
 
-    _setAwaitOptions(flutterTts, awaitSpeakCompletion);
-
-    setTtsLanguage(flutterTts, _language);
-    setTtsSpeed(flutterTts, 3);
-    setTtsVolume(flutterTts, 10);
-    setTtsGender(flutterTts, _gender);
+    setTtsLanguage(_language);
+    setTtsSpeed(_speed);
+    setTtsVolume(_volume);
+    setTtsGender(_gender);
 
     return flutterTts;
   }
 
-  Future<void> _setAwaitOptions(FlutterTts flutterTts, bool value) async {
+  Future<void> initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  String getLanguage() {
+    if (prefs == null) {
+      return _language;
+    }
+    return prefs!.getString('language') == null ? _language : prefs!.getString('language')!;
+  }
+
+  int getSpeed() {
+    if (prefs == null) {
+      return _speed;
+    }
+    log('getSpeed: ${prefs!.getInt('speed')}');
+    return prefs!.getInt('speed') == null ? _speed : prefs!.getInt('speed')!;
+  }
+
+  int getVolume() {
+    if (prefs == null) {
+      return _volume;
+    }
+    return prefs!.getInt('volume') == null ? _volume : prefs!.getInt('volume')!;
+  }
+
+  String getGender() {
+    if (prefs == null) {
+      return _gender;
+    }
+    return prefs!.getString('gender') == null ? _gender : prefs!.getString('gender')!;
+  }
+
+  Future<void> _setAwaitOptions(bool value) async {
     await flutterTts.awaitSpeakCompletion(value);
   }
 
-  FlutterTts setTtsLanguage(FlutterTts flutterTts, String language) {
+  FlutterTts setTtsLanguage(String language) {
     if (language == "English") {
       language = "en-GB";
       _language = "English";
@@ -35,11 +74,11 @@ class Tts {
     }
 
     flutterTts.setLanguage(language);
-
+    prefs!.setString('language', _language);
     return flutterTts;
   }
 
-  Future<void> setTtsGender(FlutterTts flutterTts, String gender) async {
+  Future<void> setTtsGender(String gender) async {
     if (gender == "Male") {
       _gender = "Male";
       await flutterTts.setPitch(0.5);
@@ -47,24 +86,23 @@ class Tts {
       _gender = "Female";
       await flutterTts.setPitch(1.0);
     }
+    prefs!.setString('gender', _gender);
   }
 
-  Future<void> setTtsSpeed(FlutterTts flutterTts, int intSpeed) async {
-    intSpeed = intSpeed * 2;
+  Future<void> setTtsSpeed(int intSpeed) async {
     _speed = intSpeed;
-    double speed = intSpeed / 10;
+    _modifiedSpeed = (intSpeed * 2) / 10;
+    await flutterTts.setSpeechRate(_modifiedSpeed);
 
-    await flutterTts.setSpeechRate(speed);
+    prefs!.setInt('speed', _speed);
+    log('setModspeed: $_modifiedSpeed');
+    log('set_speed: $_speed');
   }
 
-  Future<void> setTtsVolume(FlutterTts flutterTts, int intVolume) async {
+  Future<void> setTtsVolume(int intVolume) async {
     double volume = intVolume / 10;
     _volume = intVolume;
     await flutterTts.setVolume(volume);
+    prefs!.setInt('volume', _volume);
   }
-
-  get getLanguage => _language;
-  get getSpeed => _speed ~/ 2;
-  get getVolume => _volume;
-  get getGender => _gender;
 }
