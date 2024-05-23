@@ -49,9 +49,8 @@ class _HelpPageState extends State<HelpPage> {
   initState() {
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, false);
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    _speak();
+    tts!.initPrefs().then((_) => {flutterTts = tts!.initTts(false), _speak()});
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
   }
 
   void _incrementCounter() {
@@ -142,7 +141,7 @@ class _HelpPageState extends State<HelpPage> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 45) : const SizedBox(height: 55),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 45) : const SizedBox(height: 55),
                     GestureDetector(
                       onDoubleTap: () {
                         _setCounter(1);
@@ -164,7 +163,7 @@ class _HelpPageState extends State<HelpPage> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 10) : const SizedBox(height: 20),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 10) : const SizedBox(height: 20),
                     GestureDetector(
                       onDoubleTap: () {
                         _setCounter(2);
@@ -186,7 +185,7 @@ class _HelpPageState extends State<HelpPage> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 10) : const SizedBox(height: 20),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 10) : const SizedBox(height: 20),
                     GestureDetector(
                       onDoubleTap: () {
                         _setCounter(3);
@@ -208,7 +207,7 @@ class _HelpPageState extends State<HelpPage> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 10) : const SizedBox(height: 20),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 10) : const SizedBox(height: 20),
                     GestureDetector(
                       onDoubleTap: () {
                         _setCounter(4);
@@ -230,7 +229,7 @@ class _HelpPageState extends State<HelpPage> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 60) : const SizedBox(height: 80),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 60) : const SizedBox(height: 80),
                     _counter == 5
                         ? GestureDetector(
                             onDoubleTap: () {
