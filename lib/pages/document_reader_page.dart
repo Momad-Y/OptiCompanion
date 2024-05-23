@@ -63,10 +63,12 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   initState() {
     super.initState();
     tts = mainTts;
-    _dialogText = tts!.getLanguage == "English" ? _dialogTextEn : _dialogTextAr;
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    flutterTts = tts!.initTts(flutterTts, false);
-    _speak();
+    tts!.initPrefs().then((_) => {
+          flutterTts = tts!.initTts(false),
+          _speak(),
+        });
+    _dialogText = tts!.getLanguage() == "English" ? _dialogTextEn : _dialogTextAr;
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
   }
 
   void _showLinkDialog() {
@@ -250,7 +252,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                             onLongPress: () => _showLinkDialog(),
                             child: selectedHomeContainer(
                                 context,
-                                tts!.getLanguage == "English"
+                                tts!.getLanguage() == "English"
                                     ? Column(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -281,7 +283,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                             onLongPress: () => _showLinkDialog(),
                             child: homeContainer(
                                 context,
-                                tts!.getLanguage == "English"
+                                tts!.getLanguage() == "English"
                                     ? Column(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         crossAxisAlignment: CrossAxisAlignment.center,
