@@ -53,7 +53,7 @@ nextPageButton(BuildContext context, String route) {
           borderRadius: BorderRadius.circular(30),
           border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
         ),
-        child: mainTts.getLanguage == "English"
+        child: mainTts.getLanguage() == "English"
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +85,7 @@ selectedNextPageButton(BuildContext context, String route) {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
       ),
-      child: mainTts.getLanguage == "English"
+      child: mainTts.getLanguage() == "English"
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,7 +118,7 @@ previousPageButton(BuildContext context, String route) {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
       ),
-      child: mainTts.getLanguage == "English"
+      child: mainTts.getLanguage() == "English"
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,7 +151,7 @@ selectedPreviousPageButton(BuildContext context, String route) {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
       ),
-      child: mainTts.getLanguage == "English"
+      child: mainTts.getLanguage() == "English"
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -184,7 +184,7 @@ homePageButton(BuildContext context) {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
       ),
-      child: mainTts.getLanguage == "English"
+      child: mainTts.getLanguage() == "English"
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -219,7 +219,7 @@ selectedHomePageButton(
         borderRadius: BorderRadius.circular(30),
         border: Border.all(width: 4, color: Theme.of(context).colorScheme.outline),
       ),
-      child: mainTts.getLanguage == "English"
+      child: mainTts.getLanguage() == "English"
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
