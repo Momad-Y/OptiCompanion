@@ -236,7 +236,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     }
 
     cameraController!.startImageStream((cameraImage) async {
-      var predictions = await AppTfliteModel.detectObjectsStream(cameraImage);
+      var predictions = await AppTfliteModel.objectdetectionStream(cameraImage);
 
       if (_isPaused) {
         setState(() {
