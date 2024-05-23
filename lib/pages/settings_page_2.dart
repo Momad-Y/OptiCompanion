@@ -8,8 +8,6 @@ import '../tts.dart';
 import '../themes.dart';
 import '../widgets.dart';
 
-import 'package:restart_app/restart_app.dart';
-
 class SettingsPage2 extends StatefulWidget {
   const SettingsPage2({super.key});
 
@@ -127,9 +125,6 @@ class SettingsPage2State extends State<SettingsPage2> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onLongPress: () {
-          if (_counter == 0) {
-            Restart.restartApp();
-          }
           if (_counter == 2) {
             setState(() {
               tts!.setTtsSpeed(1);
