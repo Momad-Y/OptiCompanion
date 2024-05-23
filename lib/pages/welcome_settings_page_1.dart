@@ -18,7 +18,7 @@ class WelcomeSettingsPage1 extends StatefulWidget {
 }
 
 class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
-  int _counter = 0;
+  int _counter = 1;
   static const int _maxCounter = 15;
   static const int _minCounter = 0;
   static const int _velocityThreshold = 1;
@@ -78,6 +78,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts, false);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
+    WidgetsBinding.instance.addPostFrameCallback((_) => _decrementCounter());
     _speak();
   }
 
