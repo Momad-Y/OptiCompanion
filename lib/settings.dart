@@ -2,14 +2,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 AppSettings mainAppSettings = AppSettings();
 
-// TODO: Add real settings functionality with shared_preferences and in app changes
 class AppSettings {
   SharedPreferences? prefs;
 
   int _textSize = 2;
-
   late bool _isMagnifierEnabled = false;
-
   int _theme = 0;
 
   int getTextSize() {
@@ -63,7 +60,7 @@ class AppSettings {
     prefs!.setInt('theme', _theme);
   }
 
-  Future<void> saveSettings() async {
+  Future<void> initSettings() async {
     prefs = await SharedPreferences.getInstance();
     getIsMagnifierEnabled();
     getTextSize();
