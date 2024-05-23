@@ -1,16 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Tts mainTts = Tts();
+
+// TODO: Implement TTS with shared preferences
 
 class Tts {
   SharedPreferences? prefs;
 
   FlutterTts flutterTts = FlutterTts();
 
-  String _language = "Arabic";
+  String _language = "Englist";
   int _speed = 3;
   double _modifiedSpeed = 0.6;
   int _volume = 10;
@@ -42,7 +42,6 @@ class Tts {
     if (prefs == null) {
       return _speed;
     }
-    log('getSpeed: ${prefs!.getInt('speed')}');
     return prefs!.getInt('speed') == null ? _speed : prefs!.getInt('speed')!;
   }
 
@@ -95,8 +94,6 @@ class Tts {
     await flutterTts.setSpeechRate(_modifiedSpeed);
 
     prefs!.setInt('speed', _speed);
-    log('setModspeed: $_modifiedSpeed');
-    log('set_speed: $_speed');
   }
 
   Future<void> setTtsVolume(int intVolume) async {
