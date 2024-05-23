@@ -72,13 +72,15 @@ class SettingsPage1State extends State<SettingsPage1> {
   @override
   initState() {
     appSettings = mainAppSettings;
-    appSettings!.saveSettings();
+    appSettings!.initSettings();
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, false);
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
+    tts!.initPrefs().then((_) => {
+          flutterTts = tts!.initTts(false),
+          _speak(),
+        });
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
     WidgetsBinding.instance.addPostFrameCallback((_) => _decrementCounter());
-    _speak();
   }
 
   void _incrementCounter() {
@@ -112,7 +114,7 @@ class SettingsPage1State extends State<SettingsPage1> {
       await flutterTts!.speak(_pageText![_counter] + (appSettings!.getTextSize().toString()));
     } else if (_counter == 7) {
       await flutterTts!.speak(_pageText![_counter] +
-          (tts!.getLanguage == "English"
+          (tts!.getLanguage() == "English"
               ? appSettings!.getTheme() == 0
                   ? "phone's theme"
                   : appSettings!.getTheme() == 1
@@ -125,7 +127,7 @@ class SettingsPage1State extends State<SettingsPage1> {
                       : "داكنة"));
     } else if (_counter == 11) {
       await flutterTts!.speak(_pageText![_counter] +
-          (tts!.getLanguage == "English"
+          (tts!.getLanguage() == "English"
               ? (appSettings!.getIsMagnifierEnabled() == true ? "enabled" : "disabled")
               : (appSettings!.getIsMagnifierEnabled() == true ? "المكبر مفعل" : "المكبر غير مفعل")));
     } else {
@@ -398,7 +400,7 @@ class SettingsPage1State extends State<SettingsPage1> {
                       ),
                       child: Text(
                         _pageText![7] +
-                            (tts!.getLanguage == "English"
+                            (tts!.getLanguage() == "English"
                                 ? appSettings!.getTheme() == 0
                                     ? "phone's theme"
                                     : appSettings!.getTheme() == 1
@@ -517,7 +519,7 @@ class SettingsPage1State extends State<SettingsPage1> {
                       ),
                       child: Text(
                         _pageText![11] +
-                            (tts!.getLanguage == "English"
+                            (tts!.getLanguage() == "English"
                                 ? (appSettings!.getIsMagnifierEnabled() == true ? "enabled" : "disabled")
                                 : (appSettings!.getIsMagnifierEnabled() == true ? "المكبر مفعل" : "المكبر غير مفعل")),
                         style: textTheme(context).displaySmall!,
