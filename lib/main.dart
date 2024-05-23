@@ -19,9 +19,9 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      themeMode: mainAppSettings.getTheme == 0
+      themeMode: mainAppSettings.getTheme() == 0
           ? ThemeMode.system
-          : mainAppSettings.getTheme == 1
+          : mainAppSettings.getTheme() == 1
               ? ThemeMode.light
               : ThemeMode.dark,
       home: const CheckFirstTime(),
