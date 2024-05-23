@@ -46,9 +46,8 @@ class _WelcomePage1State extends State<WelcomePage1> {
   initState() {
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, false);
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    _speak();
+    tts!.initPrefs().then((_) => {flutterTts = tts!.initTts(false), _speak()});
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
   }
 
   void _incrementCounter() {
@@ -139,7 +138,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 45) : const SizedBox(height: 65),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 45) : const SizedBox(height: 65),
                     GestureDetector(
                       onDoubleTap: () {
                         _setCounter(1);
@@ -161,7 +160,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 20) : const SizedBox(height: 30),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 20) : const SizedBox(height: 30),
                     GestureDetector(
                       onDoubleTap: () {
                         _setCounter(2);
@@ -183,7 +182,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
                         ),
                       ),
                     ),
-                    tts!.getLanguage == "English" ? const SizedBox(height: 50) : const SizedBox(height: 90),
+                    tts!.getLanguage() == "English" ? const SizedBox(height: 50) : const SizedBox(height: 90),
                     _counter == 3
                         ? GestureDetector(
                             onDoubleTap: () {
