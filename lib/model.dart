@@ -4,24 +4,24 @@ import 'package:camera/camera.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
 class AppTfliteModel {
-  static bool _isModelLoaded = false;
+  static bool _isObjectDetectionModelLoaded = false;
   static int _lastProcessedTime = DateTime.now().millisecondsSinceEpoch;
 
-  static bool get getIsModelLoaded => _isModelLoaded;
+  static bool get getIsObjectDetectionModelLoaded => _isObjectDetectionModelLoaded;
 
-  static Future<void> loadModel() async {
+  static Future<void> loadObjectDetectionModel() async {
     try {
       await Tflite.loadModel(
         model: "assets/models/ssd_mobilenet.tflite",
         labels: "assets/models/labels.txt",
       );
-      _isModelLoaded = true;
+      _isObjectDetectionModelLoaded = true;
     } catch (e) {
       log("Failed to load model: $e");
     }
   }
 
-  static Future<List?> classifyStream(CameraImage cameraImage) async {
+  static Future<List?> objectdetectionStream(CameraImage cameraImage) async {
     int currentTime = DateTime.now().millisecondsSinceEpoch;
     if (currentTime - _lastProcessedTime < 1000) {
       return null;
@@ -50,6 +50,6 @@ class AppTfliteModel {
   static Future<void> closeModel() async {
     await Tflite.close();
 
-    _isModelLoaded = false;
+    _isObjectDetectionModelLoaded = false;
   }
 }
