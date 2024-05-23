@@ -36,7 +36,7 @@ class App extends StatelessWidget {
         '/settings2': (context) => const SettingsPage2(),
         '/get_in_touch': (context) => const GetInTouchPage(),
         '/help': (context) => const HelpPage(),
-        '/ocr': (context) => const OCRPage(),
+        // '/ocr': (context) => const OCRPage(),
         '/object_recognition': (context) => const ObjectRecognitionPage(),
       },
     );
