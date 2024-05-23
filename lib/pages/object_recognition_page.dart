@@ -160,16 +160,17 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     super.initState();
     _initialize();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, true);
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    _errorText = tts!.getLanguage == "English" ? _errorTextEn : _errorTextAr;
-    predictionResult = tts!.getLanguage == "English" ? "No objects detected" : "لم يتم الكشف عن أي أشياء";
+    tts!.initPrefs().then((_) => {
+          flutterTts = tts!.initTts(true),
+          _speak(),
+          _speakSelected(tts!.getLanguage() == "English"
+              ? "Detected objects will be read out loud starting from the left to the right and displayed on the screen."
+              : "سيتم قراءة الأشياء المكتشفة بصوت عالي من اليسار إلى اليمين وعرضها على الشاشة."),
+        });
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
+    _errorText = tts!.getLanguage() == "English" ? _errorTextEn : _errorTextAr;
+    predictionResult = tts!.getLanguage() == "English" ? "No objects detected" : "لم يتم الكشف عن أي أشياء";
     _pageText![3] = predictionResult;
-
-    _speak();
-    _speakSelected(tts!.getLanguage == "English"
-        ? "Detected objects will be read out loud starting from the left to the right and displayed on the screen."
-        : "سيتم قراءة الأشياء المكتشفة بصوت عالي من اليسار إلى اليمين وعرضها على الشاشة.");
   }
 
   void _incrementCounter() {
@@ -240,7 +241,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
 
       if (_isPaused) {
         setState(() {
-          _pageText![3] = tts!.getLanguage == "English" ? "Camera is paused" : "تم إيقاف الكاميرا";
+          _pageText![3] = tts!.getLanguage() == "English" ? "Camera is paused" : "تم إيقاف الكاميرا";
         });
         return;
       }
@@ -267,15 +268,15 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
       detectedObjectsEn = detectedObjectsEn.map((object) => object[0].toUpperCase() + object.substring(1)).toList();
 
       List detectedObjectsAr = detectedObjectsEn.map((object) => translator[object.toLowerCase()]).toList();
-      List detectedObjects = tts!.getLanguage == "English" ? detectedObjectsEn : detectedObjectsAr;
+      List detectedObjects = tts!.getLanguage() == "English" ? detectedObjectsEn : detectedObjectsAr;
 
       // Concatenate the detected objects names
       predictionResult = detectedObjects.join(" | ");
       if (predictionResult.isEmpty) {
-        predictionResult = tts!.getLanguage == "English" ? "No objects detected" : "لم يتم الكشف عن أي أشياء";
+        predictionResult = tts!.getLanguage() == "English" ? "No objects detected" : "لم يتم الكشف عن أي أشياء";
         alreadySaid = "Nothing";
       } else {
-        predictionResult = tts!.getLanguage == "English"
+        predictionResult = tts!.getLanguage() == "English"
             ? predictionResult = "Detected objects: $predictionResult"
             : "الأشياء المكتشفة: $predictionResult";
       }
@@ -293,11 +294,11 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     if (_isCameraOn && !_isAccessDenied && !_isCameraError) {
       cameraController!.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
       if (_isFlashOn) {
-        _pageText![2] = tts!.getLanguage == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
-        _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
+        _pageText![2] = tts!.getLanguage() == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
+        _speakSelected(tts!.getLanguage() == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
       } else {
-        _pageText![2] = tts!.getLanguage == "English" ? "Turn off flashlight" : "إطفاء الفلاش";
-        _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned on" : "تم تشغيل الفلاش");
+        _pageText![2] = tts!.getLanguage() == "English" ? "Turn off flashlight" : "إطفاء الفلاش";
+        _speakSelected(tts!.getLanguage() == "English" ? "Flashlight turned on" : "تم تشغيل الفلاش");
       }
       setState(() {
         _isFlashOn = !_isFlashOn;
@@ -309,12 +310,12 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     if (_isCameraOn && !_isAccessDenied && !_isCameraError) {
       if (_isPaused) {
         cameraController!.resumePreview();
-        _pageText![4] = tts!.getLanguage == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
-        _speakSelected(tts!.getLanguage == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
+        _pageText![4] = tts!.getLanguage() == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
+        _speakSelected(tts!.getLanguage() == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
       } else {
         cameraController!.pausePreview();
-        _pageText![4] = tts!.getLanguage == "English" ? "Resume the Camera" : "استئناف الكاميرا";
-        _speakSelected(tts!.getLanguage == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
+        _pageText![4] = tts!.getLanguage() == "English" ? "Resume the Camera" : "استئناف الكاميرا";
+        _speakSelected(tts!.getLanguage() == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
       }
       setState(() {
         _isPaused = !_isPaused;
@@ -404,7 +405,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
                           color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                     ),
                     child: Text(
-                      tts!.getLanguage == "English" ? "OR" : "ت.ش",
+                      tts!.getLanguage() == "English" ? "OR" : "ت.ش",
                     ),
                   ),
                 ),
