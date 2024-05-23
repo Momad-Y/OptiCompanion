@@ -57,9 +57,11 @@ class _HomePageState extends State<HomePage> {
   initState() {
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, false);
-    _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    _speak();
+    tts!.initPrefs().then((_) => {
+          flutterTts = tts!.initTts(false),
+          _speak(),
+        });
+    _pageText = tts!.getLanguage() == "English" ? _pageTextEn : _pageTextAr;
   }
 
   void _scrollPage() {
@@ -124,7 +126,7 @@ class _HomePageState extends State<HomePage> {
         if (_counter == 0) {
           Navigator.pushNamed(context, '/welcome1'); // TODO: Debug
         } else if (_counter == 1) {
-          Navigator.pushNamed(context, '/ocr');
+          // Navigator.pushNamed(context, '/ocr'); // TODO: Debug
         } else if (_counter == 2) {
           Navigator.pushNamed(context, '/object_recognition');
         } else if (_counter == 3) {
@@ -205,10 +207,10 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
-                                    onLongPress: () => Navigator.pushNamed(context, '/ocr'),
+                                    // onLongPress: () => Navigator.pushNamed(context, '/ocr'), // TODO: Debug
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,10 +249,10 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
-                                    onLongPress: () => Navigator.pushNamed(context, '/ocr'),
+                                    // onLongPress: () => Navigator.pushNamed(context, '/ocr'), // TODO: Debug
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -294,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/object_recognition'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -343,7 +345,7 @@ class _HomePageState extends State<HomePage> {
                                           _speak();
                                         },
                                         onLongPress: () => Navigator.pushNamed(context, '/object_recognition'),
-                                        child: tts!.getLanguage == "English"
+                                        child: tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -398,7 +400,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/document_reader'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -431,7 +433,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/document_reader'),
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -465,7 +467,7 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -497,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -623,7 +625,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -657,7 +659,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage == "English"
+                                        tts!.getLanguage() == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
