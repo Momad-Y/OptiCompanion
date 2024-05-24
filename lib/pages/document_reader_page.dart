@@ -167,8 +167,9 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
           .then((_) => tts!.getLanguage == "English" ? _speakSelected("Paused") : _speakSelected("تم الإيقاف"));
     } else {
       _pageText![4] = tts!.getLanguage == "English" ? "Pause" : "إيقاف مؤقت";
-      await _speakContent()
-          .then((_) => tts!.getLanguage == "English" ? _speakSelected("Playing") : _speakSelected("جاري التشغيل"));
+      await tts!.getLanguage == "English"
+          ? _speakSelected("Playing")
+          : _speakSelected("جاري التشغيل").then((_) => _speakContent());
     }
   }
 
