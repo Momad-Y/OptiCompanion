@@ -8,8 +8,6 @@ import '../tts.dart';
 import '../themes.dart';
 import '../widgets.dart';
 
-import 'package:clipboard/clipboard.dart';
-
 class DocumentReaderPage extends StatefulWidget {
   const DocumentReaderPage({super.key});
 
@@ -25,8 +23,6 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
 
   FlutterTts? flutterTts;
   Tts? tts;
-
-  final TextEditingController _urlController = TextEditingController();
 
   static const List<String> _pageTextEn = [
     "Document Reader",
@@ -50,11 +46,6 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
     "الصفحة الرئيسية"
   ];
 
-  final List<String> _dialogTextEn = ["Select a PDF link", "Enter URL", "Paste", "Submit"];
-
-  final List<String> _dialogTextAr = ["حدد رابط الملف", "أدخل الرابط", "الصق", "إرسال"];
-
-  List? _dialogText = [];
   List? _pageText = [];
 
   // String? _selectedLink;
@@ -63,94 +54,9 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   initState() {
     super.initState();
     tts = mainTts;
-    _dialogText = tts!.getLanguage == "English" ? _dialogTextEn : _dialogTextAr;
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     flutterTts = tts!.initTts(flutterTts, false);
     _speak();
-  }
-
-  void _showLinkDialog() {
-    _speakSpecific(_dialogText![0]);
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            title: Text(_dialogText![0], style: textTheme(context).labelLarge!, textAlign: TextAlign.center),
-            content: SizedBox(
-              width: 100,
-              height: 120,
-              child: Column(
-                children: [
-                  const SizedBox(height: 5),
-                  SizedBox(
-                    height: 50,
-                    child: TextField(
-                      controller: _urlController,
-                      textAlignVertical: TextAlignVertical.top,
-                      textAlign: TextAlign.center,
-                      style: textTheme(context).labelMedium,
-                      decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                            borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary, width: 3),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                            borderSide: BorderSide(color: Theme.of(context).colorScheme.outline, width: 3),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                          label: Center(
-                              child: Text(_dialogText![1],
-                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center))),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                          onLongPress: () {
-                            FlutterClipboard.paste().then((value) {
-                              setState(() {
-                                _urlController.text = value;
-                              });
-                            });
-                          },
-                          onDoubleTap: () => _speakSpecific(_dialogText![2]),
-                          child: Container(
-                              width: 70,
-                              height: 35,
-                              padding: const EdgeInsets.fromLTRB(10, 3, 10, 2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
-                              ),
-                              child: Text(_dialogText![2],
-                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center))),
-                      const SizedBox(width: 10),
-                      GestureDetector(
-                          onLongPress: () {},
-                          onDoubleTap: () => _speakSpecific(_dialogText![3]),
-                          child: Container(
-                              width: 70,
-                              height: 35,
-                              padding: const EdgeInsets.fromLTRB(10, 3, 10, 2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(width: 4, color: Theme.of(context).colorScheme.tertiary),
-                              ),
-                              child: Text(_dialogText![3],
-                                  style: textTheme(context).labelMedium!, textAlign: TextAlign.center))),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        });
   }
 
   void _incrementCounter() {
@@ -181,10 +87,6 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
 
   Future<void> _speak() async {
     await flutterTts!.speak(_pageText![_counter]);
-  }
-
-  Future<void> _speakSpecific(String text) async {
-    await flutterTts!.speak(text);
   }
 
   @override
@@ -247,7 +149,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                               _setCounter(1);
                               _speak();
                             },
-                            onLongPress: () => _showLinkDialog(),
+                            // onLongPress: () => _showLinkDialog(),
                             child: selectedHomeContainer(
                                 context,
                                 tts!.getLanguage == "English"
@@ -278,7 +180,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                               _setCounter(1);
                               _speak();
                             },
-                            onLongPress: () => _showLinkDialog(),
+                            // onLongPress: () => _showLinkDialog(),
                             child: homeContainer(
                                 context,
                                 tts!.getLanguage == "English"
