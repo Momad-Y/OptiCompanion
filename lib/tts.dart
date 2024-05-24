@@ -1,32 +1,37 @@
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Tts mainTts = Tts();
 
 // TODO: Implement TTS with shared preferences
 
 class Tts {
+<<<<<<< HEAD
   SharedPreferences? prefs;
 
   FlutterTts flutterTts = FlutterTts();
 
   String _language = "Englist";
+=======
+  String _language = "Arabic";
+>>>>>>> parent of e12bdb3 (Add shared_preferences package and implement preferences for TTS settings)
   int _speed = 3;
-  double _modifiedSpeed = 0.6;
   int _volume = 10;
   String _gender = "Female";
 
-  FlutterTts initTts(bool awaitSpeakCompletion) {
-    _setAwaitOptions(awaitSpeakCompletion);
+  FlutterTts initTts(FlutterTts? flutterTts, bool awaitSpeakCompletion) {
+    flutterTts = FlutterTts();
 
-    setTtsLanguage(_language);
-    setTtsSpeed(_speed);
-    setTtsVolume(_volume);
-    setTtsGender(_gender);
+    _setAwaitOptions(flutterTts, awaitSpeakCompletion);
+
+    setTtsLanguage(flutterTts, _language);
+    setTtsSpeed(flutterTts, 3);
+    setTtsVolume(flutterTts, 10);
+    setTtsGender(flutterTts, _gender);
 
     return flutterTts;
   }
 
+<<<<<<< HEAD
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
   }
@@ -60,10 +65,13 @@ class Tts {
   }
 
   Future<void> _setAwaitOptions(bool value) async {
+=======
+  Future<void> _setAwaitOptions(FlutterTts flutterTts, bool value) async {
+>>>>>>> parent of e12bdb3 (Add shared_preferences package and implement preferences for TTS settings)
     await flutterTts.awaitSpeakCompletion(value);
   }
 
-  FlutterTts setTtsLanguage(String language) {
+  FlutterTts setTtsLanguage(FlutterTts flutterTts, String language) {
     if (language == "English") {
       language = "en-GB";
       _language = "English";
@@ -73,11 +81,11 @@ class Tts {
     }
 
     flutterTts.setLanguage(language);
-    prefs!.setString('language', _language);
+
     return flutterTts;
   }
 
-  Future<void> setTtsGender(String gender) async {
+  Future<void> setTtsGender(FlutterTts flutterTts, String gender) async {
     if (gender == "Male") {
       _gender = "Male";
       await flutterTts.setPitch(0.5);
@@ -85,21 +93,28 @@ class Tts {
       _gender = "Female";
       await flutterTts.setPitch(1.0);
     }
-    prefs!.setString('gender', _gender);
   }
 
-  Future<void> setTtsSpeed(int intSpeed) async {
+  Future<void> setTtsSpeed(FlutterTts flutterTts, int intSpeed) async {
+    intSpeed = intSpeed * 2;
     _speed = intSpeed;
-    _modifiedSpeed = (intSpeed * 2) / 10;
-    await flutterTts.setSpeechRate(_modifiedSpeed);
+    double speed = intSpeed / 10;
 
+<<<<<<< HEAD
     prefs!.setInt('speed', _speed);
+=======
+    await flutterTts.setSpeechRate(speed);
+>>>>>>> parent of e12bdb3 (Add shared_preferences package and implement preferences for TTS settings)
   }
 
-  Future<void> setTtsVolume(int intVolume) async {
+  Future<void> setTtsVolume(FlutterTts flutterTts, int intVolume) async {
     double volume = intVolume / 10;
     _volume = intVolume;
     await flutterTts.setVolume(volume);
-    prefs!.setInt('volume', _volume);
   }
+
+  get getLanguage => _language;
+  get getSpeed => _speed ~/ 2;
+  get getVolume => _volume;
+  get getGender => _gender;
 }
