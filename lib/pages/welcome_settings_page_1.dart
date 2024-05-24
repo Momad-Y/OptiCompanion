@@ -73,7 +73,7 @@ class WelcomeSettingsPage1State extends State<WelcomeSettingsPage1> {
   @override
   initState() {
     appSettings = mainAppSettings;
-    appSettings!.saveSettings();
+    appSettings!.initSettings();
     super.initState();
     tts = mainTts;
     flutterTts = tts!.initTts(flutterTts, false);
