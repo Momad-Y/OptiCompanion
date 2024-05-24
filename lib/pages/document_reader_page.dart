@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -33,7 +32,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   late String _documentPath;
   late PdfDocument document;
 
-  late List<String> contentList;
+  late List<String> contentList = [];
   int _contentIndex = 0;
 
   bool _isPlaying = false;
@@ -161,6 +160,13 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   }
 
   Future<void> _togglePlaying() async {
+    if (contentList.isEmpty) {
+      tts!.getLanguage == "English"
+          ? await _speakSelected("No document uploaded")
+          : await _speakSelected("لم يتم تحميل أي مستند");
+      return;
+    }
+
     if (_isPlaying) {
       _pageText![4] = tts!.getLanguage == "English" ? "Play" : "تشغيل";
       await _stop()
@@ -185,8 +191,6 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                 if (_contentIndex == contentList.length - 1) {_contentIndex = 0},
               }
           });
-      log("$_contentIndex: ${contentList[_contentIndex]}");
-
       if (!_isPlaying) {
         _contentIndex++;
         break;
