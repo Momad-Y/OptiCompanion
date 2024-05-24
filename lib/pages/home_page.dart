@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                                     // onLongPress: () => Navigator.pushNamed(context, '/ocr'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -250,7 +250,7 @@ class _HomePageState extends State<HomePage> {
                                     // onLongPress: () => Navigator.pushNamed(context, '/ocr'),
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/object_recognition'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                                           _speak();
                                         },
                                         onLongPress: () => Navigator.pushNamed(context, '/object_recognition'),
-                                        child: tts!.getLanguage() == "English"
+                                        child: tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -398,7 +398,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/document_reader'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -431,7 +431,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/document_reader'),
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -465,7 +465,7 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -497,7 +497,7 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -623,7 +623,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: selectedHomeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -657,7 +657,7 @@ class _HomePageState extends State<HomePage> {
                                     onLongPress: () => Navigator.pushNamed(context, '/get_in_touch'),
                                     child: homeContainer(
                                         context,
-                                        tts!.getLanguage() == "English"
+                                        tts!.getLanguage == "English"
                                             ? Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
