@@ -2,6 +2,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 Tts mainTts = Tts();
 
+// TODO: Implement TTS with shared preferences
+
 class Tts {
   String _language = "Arabic";
   int _speed = 3;

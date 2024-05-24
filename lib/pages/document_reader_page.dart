@@ -152,7 +152,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                             // onLongPress: () => _showLinkDialog(),
                             child: selectedHomeContainer(
                                 context,
-                                tts!.getLanguage == "English"
+                                tts!.getLanguage() == "English"
                                     ? Column(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,7 +183,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                             // onLongPress: () => _showLinkDialog(),
                             child: homeContainer(
                                 context,
-                                tts!.getLanguage == "English"
+                                tts!.getLanguage() == "English"
                                     ? Column(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         crossAxisAlignment: CrossAxisAlignment.center,
