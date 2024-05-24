@@ -160,7 +160,7 @@ class _ObjectRecognitionPageState extends State<ObjectRecognitionPage> {
     super.initState();
     _initialize();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts, true);
+    flutterTts = tts!.initTts(flutterTts, false);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _errorText = tts!.getLanguage == "English" ? _errorTextEn : _errorTextAr;
     predictionResult = tts!.getLanguage == "English" ? "No objects detected" : "لم يتم الكشف عن أي أشياء";
