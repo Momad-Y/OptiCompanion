@@ -18,7 +18,7 @@ class SettingsPage1 extends StatefulWidget {
 }
 
 class SettingsPage1State extends State<SettingsPage1> {
-  int _counter = 0;
+  int _counter = 1;
   static const int _maxCounter = 15;
   static const int _minCounter = 0;
   static const int _velocityThreshold = 1;
@@ -72,10 +72,12 @@ class SettingsPage1State extends State<SettingsPage1> {
   @override
   initState() {
     appSettings = mainAppSettings;
+    appSettings!.initSettings();
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts);
+    flutterTts = tts!.initTts(flutterTts, false);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
+    WidgetsBinding.instance.addPostFrameCallback((_) => _decrementCounter());
     _speak();
   }
 
@@ -107,25 +109,25 @@ class SettingsPage1State extends State<SettingsPage1> {
 
   Future<void> _speak() async {
     if (_counter == 1) {
-      await flutterTts!.speak(_pageText![_counter] + (appSettings!.getTextSize.toString()));
+      await flutterTts!.speak(_pageText![_counter] + (appSettings!.getTextSize().toString()));
     } else if (_counter == 7) {
       await flutterTts!.speak(_pageText![_counter] +
           (tts!.getLanguage == "English"
-              ? appSettings!.getTheme == 0
+              ? appSettings!.getTheme() == 0
                   ? "phone's theme"
-                  : appSettings!.getTheme == 1
+                  : appSettings!.getTheme() == 1
                       ? "light"
                       : "dark"
-              : appSettings!.getTheme == 0
+              : appSettings!.getTheme() == 0
                   ? "سمة الهاتف"
-                  : appSettings!.getTheme == 1
+                  : appSettings!.getTheme() == 1
                       ? "فاتحة"
                       : "داكنة"));
     } else if (_counter == 11) {
       await flutterTts!.speak(_pageText![_counter] +
           (tts!.getLanguage == "English"
-              ? (appSettings!.getIsMagnifierEnabled ? "enabled" : "disabled")
-              : (appSettings!.getIsMagnifierEnabled ? "المكبر مفعل" : "المكبر غير مفعل")));
+              ? (appSettings!.getIsMagnifierEnabled() == true ? "enabled" : "disabled")
+              : (appSettings!.getIsMagnifierEnabled() == true ? "المكبر مفعل" : "المكبر غير مفعل")));
     } else {
       await flutterTts!.speak(_pageText![_counter]);
     }
@@ -243,7 +245,7 @@ class SettingsPage1State extends State<SettingsPage1> {
                             color: _counter == 1 ? Theme.of(context).colorScheme.outline : const Color(0x00000000)),
                       ),
                       child: Text(
-                        _pageText![1] + (appSettings!.getTextSize.toString()),
+                        _pageText![1] + (appSettings!.getTextSize().toString()),
                         style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),
@@ -397,14 +399,14 @@ class SettingsPage1State extends State<SettingsPage1> {
                       child: Text(
                         _pageText![7] +
                             (tts!.getLanguage == "English"
-                                ? appSettings!.getTheme == 0
+                                ? appSettings!.getTheme() == 0
                                     ? "phone's theme"
-                                    : appSettings!.getTheme == 1
+                                    : appSettings!.getTheme() == 1
                                         ? "light"
                                         : "dark"
-                                : appSettings!.getTheme == 0
+                                : appSettings!.getTheme() == 0
                                     ? "سمة الهاتف"
-                                    : appSettings!.getTheme == 1
+                                    : appSettings!.getTheme() == 1
                                         ? "فاتحة"
                                         : "داكنة"),
                         style: textTheme(context).displaySmall!,
@@ -516,8 +518,8 @@ class SettingsPage1State extends State<SettingsPage1> {
                       child: Text(
                         _pageText![11] +
                             (tts!.getLanguage == "English"
-                                ? (appSettings!.getIsMagnifierEnabled ? "enabled" : "disabled")
-                                : (appSettings!.getIsMagnifierEnabled ? "المكبر مفعل" : "المكبر غير مفعل")),
+                                ? (appSettings!.getIsMagnifierEnabled() == true ? "enabled" : "disabled")
+                                : (appSettings!.getIsMagnifierEnabled() == true ? "المكبر مفعل" : "المكبر غير مفعل")),
                         style: textTheme(context).displaySmall!,
                         textAlign: TextAlign.center,
                       ),

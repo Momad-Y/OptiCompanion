@@ -29,7 +29,7 @@ class _OCRPageState extends State<OCRPage> {
   FlutterTts? flutterTts;
   Tts? tts;
 
-  late CameraController _cameraController;
+  late CameraController cameraController;
   late AppCamera appCamera;
 
   bool _isCameraInitialized = false;
@@ -74,18 +74,18 @@ class _OCRPageState extends State<OCRPage> {
     appCamera = mainAppCamera;
     _initializeCamera();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts);
+    flutterTts = tts!.initTts(flutterTts, false);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _errorText = tts!.getLanguage == "English" ? _errorTextEn : _errorTextAr;
     _speak();
   }
 
-  @override
-  void dispose() {
-    _cameraController.dispose();
-
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   cameraController.dispose();
+  //   _turnOffFlash();
+  //   super.dispose();
+  // }
 
   void _incrementCounter() {
     setState(() {
@@ -114,8 +114,8 @@ class _OCRPageState extends State<OCRPage> {
   }
 
   void _initializeCamera() {
-    _cameraController = CameraController(appCamera.cameras[0], ResolutionPreset.ultraHigh);
-    _cameraController.initialize().then((_) {
+    cameraController = CameraController(appCamera.cameras[0], ResolutionPreset.ultraHigh);
+    cameraController.initialize().then((_) {
       if (!mounted) return;
 
       setState(() {
@@ -145,7 +145,7 @@ class _OCRPageState extends State<OCRPage> {
 
   void _toggleFlash() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
-      _cameraController.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
+      cameraController.setFlashMode(_isFlashOn ? FlashMode.off : FlashMode.torch);
       if (_isFlashOn) {
         _pageText![2] = tts!.getLanguage == "English" ? "Turn on flashlight" : "تشغيل الفلاش";
         _speakSelected(tts!.getLanguage == "English" ? "Flashlight turned off" : "تم إطفاء الفلاش");
@@ -162,11 +162,11 @@ class _OCRPageState extends State<OCRPage> {
   void _togglePause() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isPaused) {
-        _cameraController.resumePreview();
+        cameraController.resumePreview();
         _pageText![4] = tts!.getLanguage == "English" ? "Pause the Camera" : "إيقاف الكاميرا";
         _speakSelected(tts!.getLanguage == "English" ? "Camera resumed" : "تم استئناف الكاميرا");
       } else {
-        _cameraController.pausePreview();
+        cameraController.pausePreview();
         _pageText![4] = tts!.getLanguage == "English" ? "Resume the Camera" : "استئناف الكاميرا";
         _speakSelected(tts!.getLanguage == "English" ? "Camera paused" : "تم إيقاف الكاميرا");
       }
@@ -179,7 +179,7 @@ class _OCRPageState extends State<OCRPage> {
   void _turnOffFlash() {
     if (_isCameraInitialized && !_isAccessDenied && !_isCameraError) {
       if (_isFlashOn) {
-        _cameraController.setFlashMode(FlashMode.off);
+        cameraController.setFlashMode(FlashMode.off);
         setState(() {
           _isFlashOn = false;
         });
@@ -278,13 +278,13 @@ class _OCRPageState extends State<OCRPage> {
                   width: MediaQuery.of(context).size.width,
                   child: AspectRatio(
                     aspectRatio: _isCameraInitialized &&
-                            _cameraController.value.isInitialized &&
+                            cameraController.value.isInitialized &&
                             !_isAccessDenied &&
                             !_isCameraError
-                        ? _cameraController.value.aspectRatio
+                        ? cameraController.value.aspectRatio
                         : MediaQuery.of(context).size.width / MediaQuery.of(context).size.height,
                     child: CameraPreview(
-                      _cameraController,
+                      cameraController,
                     ),
                   ),
                 ),

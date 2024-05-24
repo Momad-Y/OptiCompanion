@@ -30,9 +30,9 @@ selectedHomeContainer(BuildContext context, Widget child) {
 }
 
 appLogo(BuildContext context, double width, double height) {
-  if (mainAppSettings.getTheme == 1) {
+  if (mainAppSettings.getTheme() == 1) {
     return Image.asset('assets/images/OptiCompanion-Transparent - Light.png', width: width, height: height);
-  } else if (mainAppSettings.getTheme == 2) {
+  } else if (mainAppSettings.getTheme() == 2) {
     return Image.asset('assets/images/OptiCompanion-Transparent - Dark.png', width: width, height: height);
   } else {
     if (MediaQuery.of(context).platformBrightness == Brightness.dark) {

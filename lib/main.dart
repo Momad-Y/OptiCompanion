@@ -19,9 +19,9 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      themeMode: mainAppSettings.getTheme == 0
+      themeMode: mainAppSettings.getTheme() == 0
           ? ThemeMode.system
-          : mainAppSettings.getTheme == 1
+          : mainAppSettings.getTheme() == 1
               ? ThemeMode.light
               : ThemeMode.dark,
       home: const CheckFirstTime(),
@@ -36,7 +36,7 @@ class App extends StatelessWidget {
         '/settings2': (context) => const SettingsPage2(),
         '/get_in_touch': (context) => const GetInTouchPage(),
         '/help': (context) => const HelpPage(),
-        '/ocr': (context) => const OCRPage(),
+        // '/ocr': (context) => const OCRPage(),
         '/object_recognition': (context) => const ObjectRecognitionPage(),
       },
     );

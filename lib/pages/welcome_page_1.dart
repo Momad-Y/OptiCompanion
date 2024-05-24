@@ -46,7 +46,7 @@ class _WelcomePage1State extends State<WelcomePage1> {
   initState() {
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts);
+    flutterTts = tts!.initTts(flutterTts, false);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _speak();
   }

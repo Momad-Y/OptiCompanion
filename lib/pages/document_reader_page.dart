@@ -55,7 +55,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
     super.initState();
     tts = mainTts;
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
-    flutterTts = tts!.initTts(flutterTts);
+    flutterTts = tts!.initTts(flutterTts, false);
     _speak();
   }
 

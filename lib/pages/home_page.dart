@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   initState() {
     super.initState();
     tts = mainTts;
-    flutterTts = tts!.initTts(flutterTts);
+    flutterTts = tts!.initTts(flutterTts, false);
     _pageText = tts!.getLanguage == "English" ? _pageTextEn : _pageTextAr;
     _speak();
   }
@@ -118,13 +118,13 @@ class _HomePageState extends State<HomePage> {
       /*
         TODO: Add History Page
         TODO: Complete Document Reader
-      
+        TODO: Add Feedback Page
       */
       onLongPress: () {
         if (_counter == 0) {
           Navigator.pushNamed(context, '/welcome1'); // TODO: Debug
         } else if (_counter == 1) {
-          Navigator.pushNamed(context, '/ocr');
+          // Navigator.pushNamed(context, '/ocr'); // TODO: Add OCR Page
         } else if (_counter == 2) {
           Navigator.pushNamed(context, '/object_recognition');
         } else if (_counter == 3) {
@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
-                                    onLongPress: () => Navigator.pushNamed(context, '/ocr'),
+                                    // onLongPress: () => Navigator.pushNamed(context, '/ocr'),
                                     child: selectedHomeContainer(
                                         context,
                                         tts!.getLanguage == "English"
@@ -247,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                                       _scrollPage();
                                       _speak();
                                     },
-                                    onLongPress: () => Navigator.pushNamed(context, '/ocr'),
+                                    // onLongPress: () => Navigator.pushNamed(context, '/ocr'),
                                     child: homeContainer(
                                         context,
                                         tts!.getLanguage == "English"
