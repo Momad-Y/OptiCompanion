@@ -117,7 +117,6 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       /*
         TODO: Add History Page
-        TODO: Complete Document Reader
         TODO: Add Feedback Page
       */
       onLongPress: () {
