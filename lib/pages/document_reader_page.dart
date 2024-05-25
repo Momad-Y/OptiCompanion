@@ -174,7 +174,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
     } else {
       _pageText![4] = tts!.getLanguage == "English" ? "Pause" : "إيقاف مؤقت";
       await tts!.getLanguage == "English"
-          ? _speakSelected("Playing")
+          ? _speakSelected("Playing").then((_) => _speakContent())
           : _speakSelected("جاري التشغيل").then((_) => _speakContent());
     }
   }
@@ -213,7 +213,17 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onLongPress: () {
-          _speak();
+          if (_counter == 1) {
+            _pickDocument();
+          } else if (_counter == 3) {
+            _stop().then((value) => Navigator.pushNamed(context, '/settings1'));
+          } else if (_counter == 4) {
+            _togglePlaying();
+          } else if (_counter == 5) {
+            Navigator.pushNamed(context, '/home');
+          } else {
+            _speak();
+          }
         },
         onHorizontalDragEnd: (details) {
           if (details.primaryVelocity! < -_velocityThreshold) {
@@ -333,6 +343,7 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
                         _speak();
                       },
                       child: Container(
+                        width: 300,
                         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
