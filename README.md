@@ -1,7 +1,7 @@
 <div align="center">
 
 <img src="./images/OptiCompanion-Transparent - Dark.png" alt="OptiCompanion logo" width="200" />
-<h1 style="vertical-align: top; font-size: 3em; text-decoration: none;">OptiCompanion</h1>
+<h1 style="vertical-align: top; font-size: 5em; text-decoration: none;">OptiCompanion</h1>
 <br>
 
 </div>
@@ -32,7 +32,7 @@ A Flutter + TensorFlow Lite mobile app that assists blind and visually impaired 
 
 ## What is OptiCompanion?
 
-OptiCompanion is a mobile accessibility companion that combines on‑device computer vision with high‑quality text‑to‑speech.
+OptiCompanion is a mobile accessibility companion designed for blind and visually impaired people that combines on‑device computer vision with high‑quality text‑to‑speech.
 
 -   **Object Recognition**: Uses a TensorFlow Lite model to identify common objects from the device camera and announces the top detections.
 -   **Document Reading**: Opens PDFs/eBooks, extracts text, and reads it using a configurable TTS engine.
