@@ -1,0 +1,31 @@
+plugins {
+    id 'com.android.library'
+}
+
+group 'sq.flutter.tflite'
+version '1.0-SNAPSHOT'
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+android {
+    namespace 'sq.flutter.tflite'
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 19
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:+'
+}
