@@ -143,8 +143,8 @@ class _DocumentReaderPageState extends State<DocumentReaderPage> {
 
       // Remove all special characters
       String specialCharacters = "!@#%^&*()_+{}|:<>?`-=[]\\;',./~\"";
-      for (int i = 0; i < specialCharacters.length; i++) {
-        contentList[i] = contentList[i].replaceAll(specialCharacters[i], " ");
+      for (int j = 0; j < specialCharacters.length; j++) {
+        contentList[i] = contentList[i].replaceAll(specialCharacters[j], " ");
       }
 
       // Remove all extra spaces and tabs
