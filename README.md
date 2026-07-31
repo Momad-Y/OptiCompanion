@@ -4,6 +4,9 @@
 <h1 style="vertical-align: top; font-size: 5em; text-decoration: none;">OptiCompanion</h1>
 <br>
 
+[![Latest Release](https://img.shields.io/github/v/release/Momad-Y/OptiCompanion?include_prereleases&label=latest%20release)](https://github.com/Momad-Y/OptiCompanion/releases/latest)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+
 </div>
 
 A Flutter + TensorFlow Lite mobile app that assists blind and visually impaired people by recognizing objects in real time and reading digital documents out loud. The app ships with bilingual UI and voice support (English and Arabic).
@@ -72,14 +75,14 @@ Other functions and sections (see [pages](./lib/pages/)): Settings, Help, Get in
 
 You can either download the latest from releases or build from source.
 
-- Download the latest release (Currently Beta):
-    - **Download from Releases**: Go to the [Releases page](https://github.com/Momad-Y/OptiCompanion.git/-/releases), select the latest release (preferred), and download the package from the Packages section.
+- Download the latest release (currently beta):
+    - **Download from Releases**: Go to the [latest release](https://github.com/Momad-Y/OptiCompanion/releases/latest) and download `app-release.apk` from its Assets section.
 
-    - **Installation**: Extract the downloaded ZIP file and install the APK file on your Android device
+    - **Installation**: Install the downloaded APK file on your Android device (you may need to allow installs from unknown sources).
 
 - Build from source
     1. Prerequisites
-        - Flutter SDK (>= 3.3), Dart SDK (>= 3.3.0)
+        - Flutter SDK (>= 3.22), Dart SDK (>= 3.4.0)
         - Android Studio or VS Code with Flutter extensions
 
     2. Clone the repository
@@ -163,7 +166,7 @@ The object recognition pipeline throttles frames for efficiency, orders detectio
 Key packages from [pubspec.yaml](./pubspec.yaml) and what they do:
 
 - `camera` — stream frames from the device camera for model inference
-- `tflite_v2` — load TFLite models and run on‑device inference
+- `tflite_v2` — load TFLite models and run on‑device inference. This package is unmaintained, so it's vendored under [`third_party/tflite_v2`](./third_party/tflite_v2) with a modernized Android build script (see `dependency_overrides` in `pubspec.yaml`) until it's replaced with a maintained alternative.
 - `flutter_tts` — text‑to‑speech for English and Arabic
 - `syncfusion_flutter_pdf` — parse PDFs and extract text on device
 - `file_picker` — pick local files (PDFs, eBooks)
